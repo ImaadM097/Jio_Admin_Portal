@@ -1,4 +1,4 @@
-import Sidebar from "./dashboard/Sidebar";
+import Sidebar from "./dashboard/Sidebar/Sidebar";
 import "./App.css";
 
 function App() {
