@@ -1,13 +1,37 @@
 import React from "react";
 import './login.css'
+import { useNavigate } from "react-router-dom";
+
+var database = [{
+    uname: "123",
+    pass: "123"
+}]
+
 
 function Login() {
+    const navigate = useNavigate();
     function handleClick(e) {
         e.preventDefault();
         let user = {};
         user.uname = e.target.Username.value;
         user.pass = e.target.Password.value;
         console.log(user)
+
+        const userData = database.find((db) => db.uname === user.uname);
+        if (userData) {
+            if (userData.pass !== user.pass) {
+                console.log("wrong pwd")
+            } else {
+                console.log("logged in ")
+                navigate("/dashboard");
+
+            }
+        }
+        else {
+            console.log("wrong username")
+        }
+
+
 
     }
 
