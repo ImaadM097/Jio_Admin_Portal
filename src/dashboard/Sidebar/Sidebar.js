@@ -3,7 +3,7 @@ import Header from './Components/Header';
 import MenuList from './Components/MenuList';
 function Sidebar(){
     return(
-        <aside className="container">
+        <aside className="container1">
             <Header/>
             <MenuList/>
         </aside>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import '../App.css'
 
 const Navbar = () => {
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-black">       
+        <nav className="navbar navbar-expand-lg navbar-dark" id="navbarJio">       
             <div className="container">
-                <a href="index.html" className="navbar-brand">JioStream</a>
+                <a href="index.html" className="navbar-brand"></a>
                 <form class="form-inline">
                     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id='searchBar'/>
                 </form>
