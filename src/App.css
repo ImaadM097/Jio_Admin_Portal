@@ -1,8 +1,10 @@
+
 /* .App {
   text-align: center;
 } */
 
-.App-logo {
+/* .App-logo { */
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -36,6 +38,7 @@
     transform: rotate(360deg);
   }
 }
+} */
 
 #searchBar {
   min-width: 35vw;
@@ -44,4 +47,8 @@
   height: 40px;
   width: 40px;
   padding-right: 8px;
+}
+#navbarJio{
+  background-color: #03045e;
+  height: auto;
 }
