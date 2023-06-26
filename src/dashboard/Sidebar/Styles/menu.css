@@ -1,0 +1,13 @@
+.menu{
+    display: block;
+    justify-content: center ;
+}
+.menu ul{
+    list-style-type: none;
+}
+#menuHeading{
+    text-align: center;
+    margin-top: 1.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+}
