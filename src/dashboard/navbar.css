@@ -1,0 +1,11 @@
+#mainNavbarDiv{
+    flex-grow: 2;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    justify-content: center;
+}
+#mainNav{
+    height: 10vh;
+}

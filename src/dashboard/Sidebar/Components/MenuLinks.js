@@ -1,7 +1,6 @@
-import '../Styles/menuLinks.css';
 function MenuLinks({obj}){
     return (
-            <h3>{obj.name}</h3>
+            <a>{obj.name}</a>
     );
 }
 
