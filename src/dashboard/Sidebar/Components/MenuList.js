@@ -11,7 +11,7 @@ function MenuList(){
             <ul>
                 {list.map(e=>{
                     return (
-                        <li onClick={()=>handleClick(e.Link)}><MenuLinks obj = {e}/></li>
+                        <li id='menuList'onClick={()=>handleClick(e.Link)}><MenuLinks obj = {e}/></li>
                     );
                 })}
             </ul>

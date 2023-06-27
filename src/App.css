@@ -48,7 +48,6 @@
   width: 40px;
   padding-right: 8px;
 }
-#navbarJio{
-  background-color: #03045e;
-  height: auto;
+.mainContainer{
+  display: flex;
 }

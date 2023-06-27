@@ -8,6 +8,22 @@
 #menuHeading{
     text-align: center;
     margin-top: 1.5rem;
-    color: white;
+    color: rgb(100 116 139);
     margin-bottom: 1.5rem;
+}
+#menuList {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-size: 1.25rem;
+}
+#menuList:hover{
+    background-color: #0096c7;
+    cursor: pointer;
 }
