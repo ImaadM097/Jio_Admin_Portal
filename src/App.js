@@ -11,11 +11,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
           <>
-          <Navbar />
-          <Sidebar />
+          <div className='mainContainer'>
+            <Sidebar />
+            <Navbar />
+          </div>
           </>
           } />
-
       </Routes>
     </BrowserRouter>
   );
