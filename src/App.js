@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Login from './login/login';
 import Sidebar from './dashboard/Sidebar/Sidebar';
 import Navbar from './dashboard/navbar';
+import Tables from './dashboard/Tables/Tables';
 
 function App() {
   return (
@@ -17,6 +18,11 @@ function App() {
           </div>
           </>
           } />
+        <Route path="/dashboard/tables" element={
+          <Tables />
+        
+        } />
+        
       </Routes>
     </BrowserRouter>
   );
