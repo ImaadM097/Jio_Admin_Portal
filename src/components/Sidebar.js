@@ -1,6 +1,6 @@
-import './Styles/container.css'
-import Header from './Components/Header';
-import MenuList from './Components/MenuList';
+import '../styles/container.css'
+import Header from './Header'
+import MenuList from './MenuList';
 function Sidebar(){
     return(
         <div className="container1">

@@ -1,6 +1,6 @@
-import Sidebar from '../Sidebar/Sidebar';
-import Navbar from '../navbar';
-import './profile.css'
+import Sidebar from '../../components/Sidebar';
+import Navbar from '../../components/navbar';
+import '../../styles/profile.css'
 function Profile(){
     return (
         <div className='mainProfileDiv'>
