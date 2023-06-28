@@ -6,7 +6,7 @@ import Navbar from './dashboard/navbar';
 import Tables from './dashboard/Tables/Tables';
 import Chart1 from './dashboard/Charts/Chart1';
 import Dashboard from './dashboard/dashboard';
-
+import Profile from './dashboard/Profile/Profile';
 function App() {
   return (
     <BrowserRouter>
@@ -19,9 +19,10 @@ function App() {
         } />
         <Route path="/dashboard/tables" element={
           <Tables />
-
         } />
-
+        <Route path="/dashboard/profile" element={
+          <Profile />
+        }/>
       </Routes>
     </BrowserRouter>
   );

@@ -8,8 +8,6 @@ import './dashboard.css'
 
 
 const Dashboard = () => {
-
-
     return (
         <>
             <div className='mainContainer'>
@@ -18,12 +16,10 @@ const Dashboard = () => {
                     <Navbar id="NavbarTable" />
                     <div className="container">
                         <div className='row'>
-
                             <div className="col">
                                 <Chart2 />
                             </div>
                             <div className="col">
-
                                 <Chart3 />
                             </div>
                         </div>
@@ -32,10 +28,7 @@ const Dashboard = () => {
                             <div className="col">
                                 <Chart1 />
                             </div>
-
                         </div>
-
-
                     </div>
                 </div>
             </div>
