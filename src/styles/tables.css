@@ -5,6 +5,7 @@
     display: block;
     flex-direction: row;
     flex: 1;
+    overflow: auto;
 }
 .tablediv{
     padding-top: 5vh;
@@ -15,7 +16,7 @@
 }
 .table {
     /* margin: 23px; */
-    box-shadow: 0 0.0005px 10px black;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     overflow: auto;
     max-height: 50vh;
     

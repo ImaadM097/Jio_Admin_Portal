@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Sidebar from '../Sidebar/Sidebar';
-import Navbar from '../navbar';
-import './tables.css'
-import response from './response.json'
-import TableRow from './TableData';
+import Sidebar from '../../components/Sidebar';
+import Navbar from '../../components/navbar';
+import '../../styles/tables.css'
+import response from '../../sample_response/sample_response.json'
+import TableRow from '../../components/TableData';
 
 
 const Tables = () => {

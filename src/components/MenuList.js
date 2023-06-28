@@ -1,9 +1,13 @@
-import '../Styles/menu.css'
+import '../styles/menu.css'
 import MenuLinks from './MenuLinks';
-const list = [{name:'Dashboard',Link:'/'},{name:'Calendar',Link:'/'},{name:'Profile',Link:'/'},{name:'Tables',Link:'/'}];
-function MenuList(){
-    function handleClick(link){
+import { useNavigate } from "react-router-dom";
 
+const list = [{name:'Dashboard',Link:'/dashboard'},{name:'Calendar',Link:'/'},{name:'Profile',Link:'/dashboard/profile'},{name:'Tables',Link:'/dashboard/tables'}];
+function MenuList(){
+    const navigate = useNavigate();
+
+    function handleClick(link){
+        navigate(link)
     }
     return (
         <div className="menu">

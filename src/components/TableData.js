@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './tables.css'
+import React from 'react';
+import '../styles/tables.css'
 
 const TableRow = ({data, index}) => {
-    const comments = data.comment
+    
 
     return (
         <>
