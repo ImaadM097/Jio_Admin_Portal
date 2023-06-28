@@ -1,0 +1,30 @@
+.RightSide {
+    height: 100vh;
+    width: fit-content;
+    display: block;
+    flex-direction: row;
+    flex: 1;
+}
+
+.container {
+
+    margin-top: 5%;
+
+}
+
+.row {
+
+    margin: 20px;
+}
+
+.chart-container {
+
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    max-height: 500px;
+    max-width: 600px;
+
+}
