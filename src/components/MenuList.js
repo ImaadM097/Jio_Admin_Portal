@@ -2,7 +2,7 @@ import '../styles/menu.css'
 import MenuLinks from './MenuLinks';
 import { useNavigate } from "react-router-dom";
 
-const list = [{name:'Dashboard',Link:'/dashboard'},{name:'Calendar',Link:'/'},{name:'Profile',Link:'/dashboard/profile'},{name:'Tables',Link:'/dashboard/tables'}];
+const list = [{name:'Dashboard',Link:'/dashboard'},{name:'Calendar',Link:'/'},{name:'Profile',Link:'/dashboard/profile'},{name:'Videos',Link:'/dashboard/tables'}];
 function MenuList(){
     const navigate = useNavigate();
 
