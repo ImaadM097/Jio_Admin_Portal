@@ -5,16 +5,12 @@ import Chart1 from './Charts/Chart1';
 import Chart2 from './Charts/Chart2';
 import Chart3 from './Charts/Chart3';
 import './dashboard.css'
-import Cookies from 'universal-cookie';
 import jwt_decode from "jwt-decode";
 import { useEffect } from 'react';
 import { redirect, useNavigate } from "react-router-dom";
-
-let cookies = new Cookies();
 const Dashboard = () => {
     const navigate = useNavigate();
-    const token = cookies.get('token');
-    
+    const token = localStorage.getItem('token');
     useEffect(() => {
         if(!token){
             navigate('/login');

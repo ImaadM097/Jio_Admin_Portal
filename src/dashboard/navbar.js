@@ -7,7 +7,7 @@ let cookies = new Cookies();
 const Navbar = () => {
   const navigate = useNavigate();
   const logOut = ()=>{
-    cookies.set('token','');
+    localStorage.removeItem('token');
     navigate('/login');
   }
     return (

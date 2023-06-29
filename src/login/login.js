@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import './login.css'
-import Cookies from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
-const cookies = new Cookies();
+
 function Login() {
     const navigate = useNavigate();
+    const [validPass,setValidPass] = useState(true);
     const [formData,setFormData] = useState({
         username:"",
         password:""
@@ -21,13 +21,15 @@ function Login() {
         })
         if(res.ok){
             const data = await res.json();
-            cookies.set('token',data.token);
+            localStorage.setItem('token',data);
+            setValidPass(true);
             navigate('/dashboard');
         }else{
             setFormData({
                 username:"",
                 password:""
             })
+            setValidPass(false);
         }
         
     }
@@ -69,13 +71,13 @@ function Login() {
                             value={formData.password}
                         // placeholder="Password"
                         />
+                        {!validPass && <p style={{color:'red'}}>Invalid username or password</p>}
                     </div>
                     <div className="d-grid gap-2 mt-3">
                         <button type="submit" className="btn btn-primary">
                             Submit
                         </button>
                     </div>
-
                 </div>
             </form>
         </div>
