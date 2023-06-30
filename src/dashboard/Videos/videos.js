@@ -1,24 +1,38 @@
-import React, { useState } from 'react';
-import Sidebar from '../../components/Sidebar';
-import Navbar from '../../components/navbar';
-import '../../styles/tables.css'
-import response from '../../sample_response/sample_response.json'
-import TableRow from '../../components/TableData';
+import React from "react";
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/navbar";
+import TableRow from "../../components/VideosTableRow";
+import '../../styles/tables.css'
 
-const Tables = () => {
+const Videos = () => {
+    const [data, setData] = useState([])
+
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     useEffect(() => {
         if(!token){
             navigate('/login');
         }
+        getVideos()
     }, []);
-    const videos = response.data.videos;
-    const totalCount = response.data.total;
-    const count = (totalCount > 10) ? 10 : totalCount;
-    const newVideos = videos.slice(0, count-1);
+
+    const getVideos = async() => {
+        const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos', {
+            method: 'GET',
+            headers: {'content-type':'application/json'}
+        })
+        const data = await res.json()
+        setData(data)
+    }
+
+    const tableHeaders = ['Title', 'Tenant', 'Status', 'Duration', 'Video']
+    
+    
+    
+
+    
     return (
         <>
             <div className='mainContainer' id="mainTable">
@@ -39,18 +53,20 @@ const Tables = () => {
                                 <table className='table'>
                                     <thead>
                                         <tr>
-                                            <th>Channel</th>
-                                            <th>Video Title</th>
-                                            <th>Comment Count</th>
-                                            <th>In-Appropriate Comment Count</th>
-                                            <th>Thumbnail</th>
+                                            {
+                                                tableHeaders.map((header)=>{
+                                                    return (
+                                                        <th>{header}</th>
+                                                    )
+                                                })
+                                            }
                                         </tr>
                                     </thead> 
                                     <tbody>
-                                    {(response == null)? (
+                                    {(data == null)? (
                                         <h5>No data</h5>
                                     ):(
-                                        newVideos.map((item, index)=>{
+                                        data.map((item, index)=>{
                                             return (
                                                 <TableRow data={item} index={index}/>
                                             )
@@ -64,9 +80,8 @@ const Tables = () => {
                     </div>
                 </div>
             </div>
-            
         </>
     )
 }
 
-export default Tables;
+export default Videos

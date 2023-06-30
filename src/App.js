@@ -1,9 +1,10 @@
 import './App.css';
 import { BrowserRouter, Routes, Route, redirect } from "react-router-dom"
 import Login from './login/login';
-import Tables from './dashboard/Videos/Tables';
+import Tables from './dashboard/Comments/Tables';
 import Dashboard from './dashboard/main_dashboard/dashboard';
 import Profile from './dashboard/Profile/Profile';
+import Videos from './dashboard/Videos/videos';
 
 function App() {  
   
@@ -16,11 +17,14 @@ function App() {
             <Dashboard/>
           </>
         } />
-        <Route path="/dashboard/tables" element={
+        <Route path="/dashboard/comments" element={
           <Tables />
         } />
         <Route path="/dashboard/profile" element={
           <Profile />
+        }/>
+        <Route path='/dashboard/videos' element={
+          <Videos />
         }/>
       </Routes>
     </BrowserRouter>
