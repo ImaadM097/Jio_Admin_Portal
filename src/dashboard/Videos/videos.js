@@ -27,7 +27,7 @@ const Videos = () => {
         setData(data)
     }
 
-    const tableHeaders = ['Name', 'Tenant', 'Status', 'Duration', 'Video']
+    const tableHeaders = ['Title', 'Tenant', 'Status', 'Duration', 'Video']
     
     
     
