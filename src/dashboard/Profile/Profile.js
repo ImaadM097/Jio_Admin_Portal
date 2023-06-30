@@ -1,7 +1,7 @@
-import Sidebar from '../Sidebar/Sidebar';
-import Navbar from '../navbar';
+import Sidebar from '../../components/Sidebar';
+import Navbar from '../../components/navbar';
 import { useNavigate } from 'react-router-dom';
-import './profile.css';
+import '../../styles/profile.css';
 import { useEffect } from 'react';
 function Profile(){
     const navigate = useNavigate();

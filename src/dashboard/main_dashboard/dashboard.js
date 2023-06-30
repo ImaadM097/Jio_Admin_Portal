@@ -1,10 +1,10 @@
 
-import Sidebar from './Sidebar/Sidebar';
-import Navbar from './navbar';
-import Chart1 from './Charts/Chart1';
-import Chart2 from './Charts/Chart2';
-import Chart3 from './Charts/Chart3';
-import './dashboard.css'
+import Sidebar from '../../components/Sidebar';
+import Navbar from '../../components/navbar';
+import Chart1 from '../../components/Chart1';
+import Chart2 from '../../components/Chart2'
+import Chart3 from '../../components/Chart3';
+import '../../styles/dashboard.css'
 import jwt_decode from "jwt-decode";
 import { useEffect } from 'react';
 import { redirect, useNavigate } from "react-router-dom";

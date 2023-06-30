@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Cookies } from 'react-cookie';
-import './navbar.css'
+import '../styles/navbar.css'
 import { Navigate, useNavigate } from 'react-router-dom';
 
 let cookies = new Cookies();
