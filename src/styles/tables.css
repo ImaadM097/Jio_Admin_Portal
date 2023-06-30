@@ -37,3 +37,7 @@ tr {
 #thumbnail{
     align-content: center;
 }
+#videoPlayer {
+    justify-content: center;
+    display: flex;
+}
