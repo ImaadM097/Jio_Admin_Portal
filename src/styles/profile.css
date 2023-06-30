@@ -4,7 +4,7 @@
 
 .profileContent{
     flex-grow: 2;
-    
+    overflow: auto;
 }
 .profileContent h2{
     margin-top: 1rem;
@@ -13,20 +13,15 @@
     display: flex; 
     margin: 0;
     width: 100%;
-    height:90%;
+    height:90vh;
     align-items: center;
     align-content: center;
     flex-direction: column;
 }
 #profileBack{
+    height: 50vh;
     margin: 2rem;
     margin-top: 1rem;
     margin-bottom: 0;
-    border-radius: 2rem;
-}
-#proImg{
-    width: 10%;
-    height: 12%;
-    margin-top: 0;
     border-radius: 2rem;
 }
