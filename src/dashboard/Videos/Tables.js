@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import Sidebar from '../../components/Sidebar';
-import Navbar from '../../components/navbar';
-import '../../styles/tables.css'
-import response from '../../sample_response/sample_response.json'
-import TableRow from '../../components/TableData';
-
+import Sidebar from '../Sidebar/Sidebar';
+import Navbar from '../navbar';
+import './tables.css'
+import response from './response.json'
+import TableRow from './TableData';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Tables = () => {
-
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    useEffect(() => {
+        if(!token){
+            navigate('/login');
+        }
+    }, []);
     const videos = response.data.videos;
     const totalCount = response.data.total;
     const count = (totalCount > 10) ? 10 : totalCount;
