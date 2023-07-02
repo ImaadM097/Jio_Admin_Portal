@@ -13,7 +13,7 @@ const TableRow = ({data, index}) => {
                 <td>{data.status}</td>
                 <td>{data.duration}</td>
                 <td>
-                    <button className='btn btn-primary sm' data-bs-toggle="modal" data-bs-target={`#modal${index}`} id="playVideoBtn">
+                    <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${index}`} id="playVideoBtn">
                         <img src='/images/video-play-icon-1.jpg' width={'25'} height={'25'}></img>
                     </button>
                     <div className='modal fade' id={`modal${index}`}>
