@@ -1,8 +1,33 @@
 import './App.css';
-import Router from './router/Router';
-function App() {
+import { BrowserRouter, Routes, Route, redirect } from "react-router-dom"
+import Login from './login/login';
+import Tables from './dashboard/Comments/Tables';
+import Dashboard from './dashboard/main_dashboard/dashboard';
+import Profile from './dashboard/Profile/Profile';
+import Videos from './dashboard/Videos/videos';
+
+function App() {  
+  
   return (
-    <Router />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={
+          <>
+            <Dashboard/>
+          </>
+        } />
+        <Route path="/dashboard/comments" element={
+          <Tables />
+        } />
+        <Route path="/dashboard/profile" element={
+          <Profile />
+        }/>
+        <Route path='/dashboard/videos' element={
+          <Videos />
+        }/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

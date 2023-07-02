@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Cookies } from 'react-cookie';
 import '../styles/navbar.css'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+let cookies = new Cookies();
 const Navbar = () => {
+  const navigate = useNavigate();
+  const logOut = ()=>{
+    localStorage.removeItem('token');
+    navigate('/login');
+  }
     return (
     <div id='mainNavbarDiv'>
-        <div class="dropdown">
+        <div className="dropdown">
         <img src='/images/user-01.png' id='profileImg'></img>
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     John Doe
   </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Profile</a>
-    <a class="dropdown-item" href="#">Account Setting</a>
-    <a class="dropdown-item" href="#">Logout</a>
+  <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a className="dropdown-item" href="#">Profile</a>
+    <a className="dropdown-item" href="#">Account Setting</a>
+    <a className="dropdown-item" onClick={logOut}>Logout</a>
   </div>
 </div>
     </div>
