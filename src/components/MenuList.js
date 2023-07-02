@@ -3,7 +3,7 @@ import MenuLinks from './MenuLinks';
 import { useNavigate } from "react-router-dom";
 
 const list = [{name:'Dashboard',Link:'/dashboard'},{name:'Calendar',Link:'/'},{name:'Profile',Link:'/dashboard/profile'},{name:'Comments',Link:'/dashboard/comments'}, 
-               {name: 'Videos', Link:'/dashboard/videos'}];
+               {name: 'Videos', Link:'/dashboard/videos'},{name: 'Tenants', Link:'/dashboard/tenants'},{name: 'Users', Link:'/dashboard/users'}];
 function MenuList(){
     const navigate = useNavigate();
 
