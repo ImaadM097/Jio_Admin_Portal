@@ -8,6 +8,7 @@ const TableRow = ({data, index}) => {
     return (
         <>
             <tr>
+                <td>{data.id}</td>
                 <td>{data.name}</td>
                 <td>{data.tenant}</td>
                 <td>{data.status}</td>

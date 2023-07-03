@@ -8,6 +8,7 @@ import '../../styles/tables.css'
 
 const Tenants = () => {
     const [data, setData] = useState([])
+    const [searchValue, setSearchValue] = useState("")
 
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -19,7 +20,13 @@ const Tenants = () => {
     }, []);
 
     const getTenants = async () => {
-        const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants', {
+        const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
+        
+
+        url.searchParams.append('page', 1); 
+        url.searchParams.append('limit', 10);
+
+        const res = await fetch(url, {
             method: 'GET',
             headers: { 'content-type': 'application/json' }
         })
@@ -29,7 +36,27 @@ const Tenants = () => {
 
     const tableHeaders = ['Id', 'Name', 'Domain', 'status']
 
+    async function handleSearch(searchTerm) {
+        let tempData = []
 
+        if(searchTerm === "") return
+        
+        for(let i=0; i<tableHeaders.length-1; i++) {
+            const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
+            const header = tableHeaders[i].toLowerCase()
+            url.searchParams.append(header, searchTerm)
+            url.searchParams.append('page', 1); 
+            url.searchParams.append('limit', 10);
+            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
+            const searchResult = await res.json()
+            tempData = tempData.concat(searchResult)
+        }
+        if(tempData.length <= 10) setData(tempData)
+        else {
+            const newTempData = tempData.slice(0, 10)
+            setData(newTempData)
+        }
+    }
 
 
 
@@ -40,12 +67,13 @@ const Tenants = () => {
                 <div className='RightSide'>
                     <Navbar id="NavbarTable" />
                     <div className="tablediv">
-                        <form>
+                        
                             <div className='input-group' id="searchBar">
-                                <input type='text' className='form-control form-control-md' placeholder='Search...' />
-                                <button className='btn btn-primary'>GO</button>
+                                <input type='text' className='form-control form-control-md' placeholder='Search...' 
+                                onChange={(e)=>{setSearchValue(e.target.value)}} />
+                                <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
                             </div>
-                        </form>
+                        
                         <div className='container'>
                             <h4>Tenants</h4>
                         </div>

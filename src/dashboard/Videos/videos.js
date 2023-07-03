@@ -8,6 +8,7 @@ import '../../styles/tables.css'
 
 const Videos = () => {
     const [data, setData] = useState([])
+    const [searchValue, setSearchValue] = useState("")
 
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -15,21 +16,48 @@ const Videos = () => {
         if(!token){
             navigate('/login');
         }
-        getVideos()
+        getVideos().then((res)=>setData(res))
+        
     }, []);
 
-    const getVideos = async() => {
-        const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos', {
+    async function getVideos() {
+
+        const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+        url.searchParams.append('page', 1); 
+        url.searchParams.append('limit', 10);
+        const res = await fetch(url, {
             method: 'GET',
             headers: {'content-type':'application/json'}
         })
         const data = await res.json()
-        setData(data)
+        
+        return data
     }
 
-    const tableHeaders = ['Title', 'Tenant', 'Status', 'Duration', 'Video']
+    const tableHeaders = ['Id' ,'Name', 'Tenant', 'Status', 'Duration', 'Video']
     
-    
+    async function handleSearch(searchTerm) {
+        let tempData = []
+        if(searchTerm === "") return
+        
+        for(let i=0; i<tableHeaders.length-1; i++) {
+            const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+            const header = tableHeaders[i].toLowerCase()
+            // console.log(header)
+            url.searchParams.append(header, searchTerm)
+            url.searchParams.append('page', 1); 
+            url.searchParams.append('limit', 10);
+            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
+            const searchResult = await res.json()
+            // console.log(searchResult)
+            tempData = tempData.concat(searchResult)
+        }
+        if(tempData.length <= 10) setData(tempData)
+        else {
+            const newTempData = tempData.slice(0, 10)
+            setData(newTempData)
+        }
+    }
     
 
     
@@ -40,12 +68,13 @@ const Videos = () => {
                 <div className='RightSide'>
                     <Navbar id="NavbarTable"/>
                     <div className="tablediv">
-                        <form>
+                        
                         <div className='input-group' id="searchBar">
-                            <input type='text' className='form-control form-control-md' placeholder='Search...'/>
-                            <button className='btn btn-primary'>GO</button>
+                            <input type='text' className='form-control form-control-md' placeholder='Search...' onChange={(e)=>{setSearchValue(e.target.value)}} 
+                            value={searchValue}/>
+                            <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
                         </div>
-                        </form>
+                       
                         <div className='container'>
                             <h4>Videos</h4>
                         </div>
@@ -63,7 +92,7 @@ const Videos = () => {
                                         </tr>
                                     </thead> 
                                     <tbody>
-                                    {(data == null)? (
+                                    {(data == null || data.length===0)? (
                                         <h5>No data</h5>
                                     ):(
                                         data.map((item, index)=>{
