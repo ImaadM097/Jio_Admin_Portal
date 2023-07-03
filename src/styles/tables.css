@@ -41,3 +41,8 @@ tr {
     justify-content: center;
     display: flex;
 }
+#playVideoBtn {
+    background-color: white;
+    
+}
+
