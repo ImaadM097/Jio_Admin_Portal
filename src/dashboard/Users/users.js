@@ -10,6 +10,7 @@ import UsersTableRow from "../../components/usersTableRow";
 const Users = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
+    const [search, setSearch] = useState(false)
 
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -37,9 +38,10 @@ const Users = () => {
     const tableHeaders = ['Id', 'Username', 'Tenant', 'role','status']
 
     async function handleSearch(searchTerm) {
+        setSearch(true)
         let tempData = []
 
-        if(searchTerm === "") return
+        if(searchTerm === "") { setSearch(false);    return }
         
         for(let i=0; i<tableHeaders.length-1; i++) {
             const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
@@ -58,6 +60,7 @@ const Users = () => {
             const newTempData = tempData.slice(0, 10)
             setData(newTempData)
         }
+        setSearch(false)
     }
 
 
@@ -75,6 +78,11 @@ const Users = () => {
                                 onChange={(e)=>{setSearchValue(e.target.value)}} />
                                 <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
                             </div>
+                            {
+                            (search) ? (
+                                <div className="container" ><h6 id="searchIndicator">Searching....</h6></div>
+                            ) : (<></>)
+                            }
                         
                         <div className='container'>
                             <h4>Users</h4>

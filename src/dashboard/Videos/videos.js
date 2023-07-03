@@ -9,6 +9,7 @@ import '../../styles/tables.css'
 const Videos = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
+    const [search, setSearch] = useState(false)
 
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -37,8 +38,9 @@ const Videos = () => {
     const tableHeaders = ['Id' ,'Name', 'Tenant', 'Status', 'Duration', 'Video']
     
     async function handleSearch(searchTerm) {
+        setSearch(true)
         let tempData = []
-        if(searchTerm === "") return
+        if(searchTerm === "") { setSearch(false);    return }
         
         for(let i=0; i<tableHeaders.length-1; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
@@ -57,6 +59,7 @@ const Videos = () => {
             const newTempData = tempData.slice(0, 10)
             setData(newTempData)
         }
+        setSearch(false)
     }
     
 
@@ -74,6 +77,11 @@ const Videos = () => {
                             value={searchValue}/>
                             <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
                         </div>
+                        {
+                            (search) ? (
+                                <div className="container" ><h6 id="searchIndicator">Searching....</h6></div>
+                            ) : (<></>)
+                        }
                        
                         <div className='container'>
                             <h4>Videos</h4>
