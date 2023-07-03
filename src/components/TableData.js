@@ -52,7 +52,6 @@ const TableRow = ({data, index}) => {
     </div>
   </div>
 </div>
-                
                 </td>
             </tr>
         </>
