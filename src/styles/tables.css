@@ -27,6 +27,9 @@ tr {
     padding-bottom: 5vh;
     
 }
+#searchIndicator {
+    color: blue;
+}
 
 .modal-body {
     overflow: auto;
@@ -43,5 +46,6 @@ tr {
 }
 #playVideoBtn {
     background-color: white;
-    border: none;
+    
 }
+

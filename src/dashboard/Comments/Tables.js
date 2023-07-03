@@ -19,9 +19,6 @@ const Tables = () => {
     const totalCount = response.data.total;
     const count = (totalCount > 10) ? 10 : totalCount;
     const newVideos = videos.slice(0, count-1);
-
-
-
     return (
         <>
             <div className='mainContainer' id="mainTable">
