@@ -101,7 +101,7 @@ const Users = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(data == null) ? (
+                                    {(data == null || data.length==0) ? (
                                         <h5>No data</h5>
                                     ) : (
                                         data.map((item, index) => {
