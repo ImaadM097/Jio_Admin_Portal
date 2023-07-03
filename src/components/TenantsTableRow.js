@@ -7,8 +7,8 @@ const TenantsTableRow = ({ data, index }) => {
 
     function clicked(event) {
 
-        console.log(event.target.value);
-        if(event.target.value === 'active'){
+        console.log(event.target.checked);
+        if(event.target.checked === true){
             changeStatus(true)
 
         }
@@ -39,20 +39,18 @@ const TenantsTableRow = ({ data, index }) => {
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
                 <td>{
-                    <div onChange={clicked}>
-                        <label>Activate</label>
+                    <div class="form-check form-switch">
                         
-                        <input type="radio" 
-                        name={String(data.id )+ "active"}                   
-                        value="active"
-                        checked={status} />
+                        
+                        <input class="form-check-input" 
+                        type="checkbox" role="switch" 
+                        id="flexSwitchCheckDefault"
+                        checked={status}
+                        onChange={clicked}/>
                     
-                        <label>Deactivate</label>
+                        
 
-                        <input type="radio" 
-                        name={String(data.id )+ "active"}
-                        value="inactive"
-                        checked={!status} />
+                        
                     
                     
                     </div>
