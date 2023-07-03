@@ -35,7 +35,7 @@ const Users = () => {
         setData(data)
     }
 
-    const tableHeaders = ['Id', 'Username', 'Tenant', 'role','status']
+    const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
 
     async function handleSearch(searchTerm) {
         setSearch(true)
