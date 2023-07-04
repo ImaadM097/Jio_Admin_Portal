@@ -11,7 +11,7 @@ function Profile(){
         if(!token){
             navigate('/login');
         }
-    }, []);
+    }, [navigate,token]);
     return (
         <div className='mainProfileDiv'>
             <Sidebar/>

@@ -9,6 +9,7 @@ import '../../styles/tables.css'
 const Tenants = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
+    console.log(searchValue);
     const [search, setSearch] = useState(false)
 
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Tenants = () => {
             navigate('/login');
         }
         getTenants()
-    }, []);
+    }, [navigate,token]);
 
     const getTenants = async () => {
         const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
@@ -103,7 +104,7 @@ const Tenants = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(data == null || data.length==0) ? (
+                                    {(data === null || data.length===0) ? (
                                         <h5>No data</h5>
                                     ) : (
                                         data.map((item, index) => {
