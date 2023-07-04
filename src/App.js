@@ -7,13 +7,14 @@ import Profile from './dashboard/Profile/Profile';
 import Videos from './dashboard/Videos/videos';
 import Tenants from './dashboard/Tenants/tenants';
 import Users from './dashboard/Users/users';
+import Homepage from './homepage/Homepage';
 
 function App() {  
   
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Login />} />
+        <Route path="/" element={<Homepage/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
           <>
