@@ -21,7 +21,8 @@ function Login() {
         })
         if(res.ok){
             const data = await res.json();
-            localStorage.setItem('token',JSON.stringify(data));   
+            localStorage.setItem('token',data.token);   
+            localStorage.setItem('user',JSON.stringify(data));
             setValidPass(true);
             navigate('/dashboard');
         }else{

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
-import Navbar from '../../components/navbar';
+// import Navbar from '../../components/navbar';
 import '../../styles/tables.css'
 import response from '../../sample_response/sample_response.json'
 import TableRow from '../../components/TableData';
@@ -24,7 +24,7 @@ const Tables = () => {
             <div className='mainContainer' id="mainTable">
                 <Sidebar id="SidebarTable"/>
                 <div className='RightSide'>
-                    <Navbar id="NavbarTable"/>
+                    {/* <Navbar id="NavbarTable"/> */}
                     <div className="tablediv">
                         <form>
                         <div className='input-group' id="searchBar">

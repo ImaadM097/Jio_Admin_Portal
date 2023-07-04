@@ -4,7 +4,6 @@ import Chart from "react-apexcharts";
 class Chart1 extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             options: {
                 chart: {
@@ -25,15 +24,12 @@ class Chart1 extends Component {
 
     render() {
         return (
-
             <div className="chart-container">
                 <div className="mixed-chart">
                     <Chart
                         options={this.state.options}
                         series={this.state.series}
                         type="bar"
-
-
                     />
                 </div>
             </div>

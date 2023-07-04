@@ -3,6 +3,7 @@
 }
 
 .profileContent{
+    margin-top: 5rem;
     flex-grow: 2;
     overflow: auto;
 }
