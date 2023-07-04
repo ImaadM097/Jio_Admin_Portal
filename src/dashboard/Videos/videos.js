@@ -87,7 +87,7 @@ const Videos = () => {
                             <h4>Videos</h4>
                         </div>
                             <div className='container' id='tableContainer'>
-                                <table className='table'>
+                                <table className='table' id='dataTables'>
                                     <thead>
                                         <tr>
                                             {
