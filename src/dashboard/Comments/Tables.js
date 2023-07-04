@@ -8,12 +8,12 @@ import { useEffect } from 'react';
 
 const Tables = () => {
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
     useEffect(() => {
-        const token = localStorage.getItem('token');
         if(!token){
             navigate('/login');
         }
-    }, []);
+    }, [navigate,token]);
     const videos = response.data.videos;
     const totalCount = response.data.total;
     const count = (totalCount > 10) ? 10 : totalCount;

@@ -19,7 +19,7 @@ const Videos = () => {
         }
         getVideos()
         
-    }, []);
+    }, [navigate,token]);
 
     async function getVideos() {
 
