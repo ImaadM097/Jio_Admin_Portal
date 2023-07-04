@@ -20,6 +20,7 @@
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     overflow: auto;
     max-height: 50vh;
+    
 }
 tr {
     width: 100%;
@@ -27,6 +28,7 @@ tr {
 #tableContainer{
     padding-bottom: 5vh;
     margin-bottom: 4rem;
+    
 }
 #searchIndicator {
     color: blue;
@@ -51,3 +53,5 @@ tr {
 #barChart{
     margin-bottom: 2rem;
 }
+
+
