@@ -17,7 +17,7 @@ const Videos = () => {
         if(!token){
             navigate('/login');
         }
-        getVideos().then((res)=>setData(res))
+        getVideos()
         
     }, []);
 
@@ -31,18 +31,21 @@ const Videos = () => {
             headers: {'content-type':'application/json'}
         })
         const data = await res.json()
+        setData(data)
         
-        return data
     }
 
     const tableHeaders = ['Id' ,'Name', 'Tenant', 'Status', 'Duration', 'Video']
     
-    async function handleSearch(searchTerm) {
+    async function handleSearch(e) {
+
+        setSearchValue(e.target.value)
+        const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-        if(searchTerm === "") { setSearch(false);    return }
+        if(searchTerm.length <= 2) {   getVideos(); setSearch(false);    return }
         
-        for(let i=0; i<tableHeaders.length-1; i++) {
+        for(let i=0; i<tableHeaders.length-3; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
             const header = tableHeaders[i].toLowerCase()
             // console.log(header)
@@ -73,9 +76,9 @@ const Videos = () => {
                     <div className="tablediv">
                         
                         <div className='input-group' id="searchBar">
-                            <input type='text' className='form-control form-control-md' placeholder='Search...' onChange={(e)=>{setSearchValue(e.target.value)}} 
+                            <input type='text' className='form-control form-control-md' placeholder='Search by name or tenant...' onChange={handleSearch} 
                             value={searchValue}/>
-                            <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
+                            {/* <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button> */}
                         </div>
                         {
                             (search) ? (
