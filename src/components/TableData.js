@@ -33,7 +33,7 @@ const TableRow = ({data, index}) => {
                 </td>
                 <td id='thumbnail'> 
                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <img src='/images/thumbnailLogo.png' width={'25'} height={'25'}></img>
+                    <img alt=""src='/images/thumbnailLogo.png' width={'25'} height={'25'}></img>
                     </button>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
