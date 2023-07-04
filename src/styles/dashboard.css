@@ -1,4 +1,5 @@
 .RightSide {
+    margin-top: 5rem;
     height: 100vh;
     width: fit-content;
     display: block;
@@ -7,24 +8,23 @@
 }
 
 #chartContainer {
-
     margin-top: 5%;
-
 }
 
 .row {
-
-    margin: 20px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
 }
-
-.chart-container {
-
+.col{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 2rem;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    border-radius: 8px;
-    background-color: rgb(255, 255, 255);
-    max-height: 500px;
-    max-width: 600px;
-
+    border-radius: 2rem;
+}
+#barChart{
+    padding: 4rem;
 }

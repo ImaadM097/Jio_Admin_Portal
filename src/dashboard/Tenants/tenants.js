@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/navbar";
+// import Navbar from "../../components/navbar";
 import TenantsTableRow from "../../components/TenantsTableRow";
 import '../../styles/tables.css'
 
@@ -68,7 +68,7 @@ const Tenants = () => {
             <div className='mainContainer' id="mainTable">
                 <Sidebar id="SidebarTable" />
                 <div className='RightSide'>
-                    <Navbar id="NavbarTable" />
+                    {/* <Navbar id="NavbarTable" /> */}
                     <div className="tablediv">
                         
                             <div className='input-group' id="searchBar">
