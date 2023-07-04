@@ -37,13 +37,15 @@ const Users = () => {
 
     const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
 
-    async function handleSearch(searchTerm) {
+    async function handleSearch(e) {
+
+        setSearchValue(e.target.value)
+        const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-
-        if(searchTerm === "") { setSearch(false);    return }
+        if(searchTerm.length <= 2) {   getUsers(); setSearch(false);    return }
         
-        for(let i=0; i<tableHeaders.length-1; i++) {
+        for(let i=1; i<tableHeaders.length-1; i++) {
             const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
             let header = tableHeaders[i].toLowerCase()
             if(header === 'username') header = 'user_name'
@@ -74,9 +76,9 @@ const Users = () => {
                     <div className="tablediv">
                         
                             <div className='input-group' id="searchBar">
-                                <input type='text' className='form-control form-control-md' placeholder='Search...' 
-                                onChange={(e)=>{setSearchValue(e.target.value)}} />
-                                <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
+                                <input type='text' className='form-control form-control-md' placeholder='Search by username, tenant, role...' 
+                                onChange={handleSearch} />
+                                {/* <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button> */}
                             </div>
                             {
                             (search) ? (
