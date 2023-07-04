@@ -43,7 +43,7 @@ const Users = () => {
         const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-        if(searchTerm.length <= 2) {   getUsers(); setSearch(false);    return }
+        if(searchTerm.length <= 2) {   await getUsers(); setSearch(false);    return }
         
         for(let i=1; i<tableHeaders.length-1; i++) {
             const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
