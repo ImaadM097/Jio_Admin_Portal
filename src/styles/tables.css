@@ -26,7 +26,6 @@ tr {
 }
 #tableContainer{
     padding-bottom: 5vh;
-    
 }
 #searchIndicator {
     color: blue;
@@ -47,6 +46,7 @@ tr {
 }
 #playVideoBtn {
     background-color: white;
-    
 }
-
+#barChart{
+    margin-bottom: 2rem;
+}
