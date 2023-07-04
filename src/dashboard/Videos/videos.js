@@ -43,7 +43,7 @@ const Videos = () => {
         const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-        if(searchTerm.length <= 2) {   getVideos(); setSearch(false);    return }
+        if(searchTerm.length <= 2) {  await getVideos(); setSearch(false);    return }
         
         for(let i=0; i<tableHeaders.length-3; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
