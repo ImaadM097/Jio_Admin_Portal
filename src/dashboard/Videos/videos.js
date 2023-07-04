@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/navbar";
+// import Navbar from "../../components/navbar";
 import TableRow from "../../components/VideosTableRow";
 import '../../styles/tables.css'
 
@@ -36,23 +36,33 @@ const Videos = () => {
     }
 
     const tableHeaders = ['Id' ,'Name', 'Tenant', 'Status', 'Duration', 'Video']
-    
-    async function handleSearch(searchTerm) {
+
+    async function onSearchBarChange(e) {
+
+        setSearchValue(e.target.value)
+        const searchTerm = e.target.value
+
         setSearch(true)
         let tempData = []
-        if(searchTerm === "") { setSearch(false);    return }
+        if(searchTerm.length <= 2) { setSearch(false);    return }
         
-        for(let i=0; i<tableHeaders.length-1; i++) {
+        
+    
+        for(let i=1; i<tableHeaders.length-2; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
             const header = tableHeaders[i].toLowerCase()
             // console.log(header)
             url.searchParams.append(header, searchTerm)
             url.searchParams.append('page', 1); 
             url.searchParams.append('limit', 10);
-            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
-            const searchResult = await res.json()
-            // console.log(searchResult)
+            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}}).catch((error)=>{
+                console.log(error)
+            })
+            // if(!res.ok) setSearch(false)
+            const searchResult = await res.json() 
+            console.log(searchResult)
             tempData = tempData.concat(searchResult)
+            
         }
         if(tempData.length <= 10) setData(tempData)
         else {
@@ -60,6 +70,8 @@ const Videos = () => {
             setData(newTempData)
         }
         setSearch(false)
+    
+        
     }
     
 
@@ -69,13 +81,13 @@ const Videos = () => {
             <div className='mainContainer' id="mainTable">
                 <Sidebar id="SidebarTable"/>
                 <div className='RightSide'>
-                    <Navbar id="NavbarTable"/>
+                    {/* <Navbar id="NavbarTable"/> */}
                     <div className="tablediv">
                         
                         <div className='input-group' id="searchBar">
-                            <input type='text' className='form-control form-control-md' placeholder='Search...' onChange={(e)=>{setSearchValue(e.target.value)}} 
+                            <input type='text' className='form-control form-control-md' placeholder='Search...' onChange={onSearchBarChange} 
                             value={searchValue}/>
-                            <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button>
+                            {/* <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button> */}
                         </div>
                         {
                             (search) ? (
@@ -88,6 +100,7 @@ const Videos = () => {
                         </div>
                             <div className='container' id='tableContainer'>
                                 <table className='table'>
+                                    
                                     <thead>
                                         <tr>
                                             {
@@ -112,6 +125,7 @@ const Videos = () => {
                                     
                                     }
                                     </tbody>
+                                    
                                 </table>
                             </div>
                     </div>

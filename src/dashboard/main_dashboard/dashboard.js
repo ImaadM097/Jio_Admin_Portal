@@ -1,18 +1,16 @@
-
 import Sidebar from '../../components/Sidebar';
-import Navbar from '../../components/navbar';
+// import Navbar from '../../components/navbar';
 import Chart1 from '../../components/Chart1';
 import Chart2 from '../../components/Chart2'
 import Chart3 from '../../components/Chart3';
 import '../../styles/dashboard.css'
-import jwt_decode from "jwt-decode";
 import { useEffect } from 'react';
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
     const navigate = useNavigate();
-    const token = localStorage.getItem('token');
+    const usr1 = localStorage.getItem('token');
     useEffect(() => {
-        if(!token){
+        if(!usr1){
             navigate('/login');
         }
     }, []);
@@ -21,7 +19,7 @@ const Dashboard = () => {
                 <div className='mainContainer'>
                     <Sidebar id="SidebarTable" />
                     <div className='RightSide'>
-                        <Navbar id="NavbarTable" />
+                        {/* <Navbar id="NavbarTable" /> */}
                         <div className="container">
                             <div className='row'>
                                 <div className="col">
@@ -32,7 +30,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                             <div className='row'>
-                                <div className="col">
+                                <div className="col" id='barChart'>
                                     <Chart1 />
                                 </div>
                             </div>

@@ -6,6 +6,7 @@
     flex-direction: row;
     flex: 1;
     overflow: auto;
+    margin-top: 5rem;
 }
 .tablediv{
     padding-top: 5vh;
@@ -19,12 +20,14 @@
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     overflow: auto;
     max-height: 50vh;
+    
 }
 tr {
     width: 100%;
 }
 #tableContainer{
     padding-bottom: 5vh;
+    margin-bottom: 4rem;
     
 }
 #searchIndicator {
@@ -46,6 +49,9 @@ tr {
 }
 #playVideoBtn {
     background-color: white;
-    
 }
+#barChart{
+    margin-bottom: 2rem;
+}
+
 

@@ -1,10 +1,13 @@
 .mainProfileDiv{
     display: flex;
+    background-color: #caf0f8;;
 }
 
 .profileContent{
+    margin-top: 5rem;
     flex-grow: 2;
     overflow: auto;
+    color: #003566;
 }
 .profileContent h2{
     margin-top: 1rem;
@@ -22,6 +25,7 @@
     height: 50vh;
     margin: 2rem;
     margin-top: 1rem;
-    margin-bottom: 0;
+    margin-bottom: 2rem;
     border-radius: 2rem;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
 }
