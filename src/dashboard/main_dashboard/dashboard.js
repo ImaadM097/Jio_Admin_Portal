@@ -13,7 +13,7 @@ const Dashboard = () => {
         if(!usr1){
             navigate('/login');
         }
-    }, []);
+    }, [navigate,usr1]);
         return (
             <>
                 <div className='mainContainer'>

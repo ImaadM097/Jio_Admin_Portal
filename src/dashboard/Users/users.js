@@ -10,6 +10,7 @@ import UsersTableRow from "../../components/usersTableRow";
 const Users = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
+    console.log(searchValue);
     const [search, setSearch] = useState(false)
 
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Users = () => {
             navigate('/login');
         }
         getUsers()
-    }, []);
+    }, [navigate,token]);
 
     const getUsers = async () => {
         const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
@@ -103,7 +104,7 @@ const Users = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(data === null || data.length==0) ? (
+                                    {(data === null || data.length===0) ? (
                                         <h5>No data</h5>
                                     ) : (
                                         data.map((item, index) => {
