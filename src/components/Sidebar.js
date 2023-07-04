@@ -16,7 +16,6 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountMenu from './AccountMenu';
 
-
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -60,7 +59,26 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       },
     }),
   );
-  const defaultTheme = createTheme();
+  const defaultTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#003566',
+      },
+      secondary: {
+        light: '#0066ff',
+        main: '#0044ff',
+        contrastText: '#ffcc00',
+      },
+      custom: {
+        light: '#ffa726',
+        main: '#f57c00',
+        dark: '#ef6c00',
+        contrastText: 'rgba(0, 0, 0, 0.87)',
+      },
+      contrastThreshold: 3,
+      tonalOffset: 0.2,
+    },
+  });
     const drawerWidth = 240;
 function Sidebar(){
     const [open, setOpen] = React.useState(true);
@@ -105,7 +123,7 @@ function Sidebar(){
             <AccountMenu/>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer PaperProps={{sx:{backgroundColor:'#fefae0'}}}variant="permanent" open={open}>
         <Toolbar
           sx={{
             display: 'flex',

@@ -1,10 +1,11 @@
 .RightSide {
-    margin-top: 5rem;
+    margin-top: 4rem;
     height: 100vh;
     width: fit-content;
     display: block;
     flex-direction: row;
     flex: 1;
+    background-color: #caf0f8;
 }
 
 #chartContainer {
@@ -16,6 +17,8 @@
     margin-bottom: 1rem;
     display: flex;
     justify-content: center;
+    margin-right: 1rem;
+    margin-left: 1rem;
 }
 .col{
     display: flex;
@@ -24,7 +27,9 @@
     margin: 2rem;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     border-radius: 2rem;
+    background-color: #fefae0;
 }
 #barChart{
     padding: 4rem;
+    margin-bottom: 6rem;
 }

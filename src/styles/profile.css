@@ -1,5 +1,6 @@
 .mainProfileDiv{
     display: flex;
+    background-color: #caf0f8;;
 }
 
 .profileContent{
@@ -25,4 +26,5 @@
     margin-top: 1rem;
     margin-bottom: 0;
     border-radius: 2rem;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
 }
