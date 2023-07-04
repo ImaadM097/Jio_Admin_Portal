@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 // import Navbar from '../../components/navbar';
 import '../../styles/tables.css'
@@ -9,8 +8,8 @@ import { useEffect } from 'react';
 
 const Tables = () => {
     const navigate = useNavigate();
-    const token = localStorage.getItem('token');
     useEffect(() => {
+        const token = localStorage.getItem('token');
         if(!token){
             navigate('/login');
         }
