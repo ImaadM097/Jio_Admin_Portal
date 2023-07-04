@@ -26,6 +26,7 @@ tr {
 }
 #tableContainer{
     padding-bottom: 5vh;
+    margin-bottom: 4rem;
 }
 #searchIndicator {
     color: blue;
