@@ -96,7 +96,7 @@ function Sidebar(){
             <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px', justifyContent:'flex-end'// keep right padding when drawer closed
             }}
           >
             <IconButton
@@ -111,15 +111,15 @@ function Sidebar(){
             >
               <MenuIcon />
             </IconButton>
-            <Typography
+            {!open && <Typography
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1,transitionTimingFunction:'ease-out',fontWeight:'bold' }}
             >
               JioStream
-            </Typography>
+            </Typography>}
             <AccountMenu/>
           </Toolbar>
         </AppBar>
@@ -131,7 +131,15 @@ function Sidebar(){
             justifyContent: 'flex-end',
             px: [1],
           }}
-        >
+        > <Typography
+        component="h1"
+        variant="h6"
+        color="inherit"
+        noWrap
+        sx={[{ flexGrow: 1},{textAlign:'center'},{fontWeight:'bold'}]}
+      >
+        JioStream
+      </Typography>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
           </IconButton>

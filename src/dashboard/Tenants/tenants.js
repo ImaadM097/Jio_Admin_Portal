@@ -5,13 +5,16 @@ import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import TenantsTableRow from "../../components/TenantsTableRow";
 import '../../styles/tables.css'
-
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Alert from '@mui/material/Alert';
 const Tenants = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
     console.log(searchValue);
     const [search, setSearch] = useState(false)
-
+    const [alert,setAlert] = useState(false);
+    const [loader,setLoader] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     useEffect(() => {
@@ -33,7 +36,14 @@ const Tenants = () => {
             headers: { 'content-type': 'application/json' }
         })
         const data = await res.json()
-        setData(data)
+        if(data.length === 0 || data === null){
+            setAlert(true);
+            setLoader(false);
+        }
+        else{ 
+            setData(data);
+            setLoader(false);
+        }
     }
 
     const tableHeaders = ['Id', 'Name', 'Domain', 'Active']
@@ -104,16 +114,20 @@ const Tenants = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(data === null || data.length===0) ? (
-                                        <h5>No data</h5>
-                                    ) : (
-                                        data.map((item, index) => {
-                                            return (
-                                                <TenantsTableRow data={item} index={index} />
-                                            )
-                                        })
-                                    )
-
+                                {loader && <Box sx={{ width: '100%' }}>
+                                            <LinearProgress />
+                                        </Box>}
+                                        {
+                                            alert && <Alert severity="warning">No data found!!</Alert>
+                                        }
+                                    {
+                                        (!alert && !loader)?(
+                                            data.map((item, index)=>{
+                                                return (
+                                                    <TenantsTableRow data={item} index={index}/>
+                                                )
+                                            })
+                                        ):''
                                     }
                                 </tbody>
                             </table>
