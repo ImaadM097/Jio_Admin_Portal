@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
-
+import '../styles/charts.css'
 class Chart2 extends Component {
     constructor(props) {
         super(props);
@@ -59,9 +59,9 @@ class Chart2 extends Component {
 
                     />
                 </div>
-                <p className="col">
-                <button onClick={this.updateCharts}>Update!</button>
-                </p>
+                <div className="chartButton">
+                <button className="btn btn-primary"onClick={this.updateCharts}>Update!</button>
+                </div>
             </div>
 
 

@@ -33,8 +33,6 @@ class Chart1 extends Component {
                     />
                 </div>
             </div>
-
-
         );
     }
 }
