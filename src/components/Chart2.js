@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 class Chart2 extends Component {
     constructor(props) {
         super(props);
-
+        this.updateCharts = this.updateCharts.bind(this);
         this.state = {
             options: {
                 chart: {
@@ -23,6 +23,29 @@ class Chart2 extends Component {
         };
     }
 
+    async updateCharts() {
+        const newSeries = [];
+        
+        
+
+        const url = new URL('http://www.randomnumberapi.com/api/v1.0/random?min=0&max=100&count=8')
+        
+
+        const res = await fetch(url, {
+            method: 'GET',
+            //headers: { 'content-type': 'application/json' }
+        })
+        const newdata = await res.json()
+        console.log(newdata)
+
+        newSeries.push({name:"series-1",data:newdata})
+
+        this.setState({
+            series: newSeries,
+            
+          })
+    }
+    
     render() {
         return (
 
@@ -36,6 +59,9 @@ class Chart2 extends Component {
 
                     />
                 </div>
+                <p className="col">
+                <button onClick={this.updateCharts}>Update!</button>
+                </p>
             </div>
 
 
