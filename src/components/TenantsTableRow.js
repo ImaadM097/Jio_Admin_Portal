@@ -3,58 +3,61 @@ import '../styles/tables.css';
 import { useState } from 'react';
 
 const TenantsTableRow = ({ data, index }) => {
-    let [status,SetStatus] = useState(data.status)
+    const [volumeControlEnabled, setVolumeControlEnabled] = useState(data.features.volumeControlEnabled);
+    const [productDrawerEnabled, setProductDrawerEnabled] = useState(data.features.productDrawerEnabled);
+    const [reportEnabled, setReportEnabled] = useState(data.features.reportEnabled);
+    const [likeEnabled, setLikeEnabled] = useState(data.features.likeEnabled);
 
-    function clicked(event) {
-
-        console.log(event.target.checked);
-        if(event.target.checked === true){
-            changeStatus(true)
-
-        }
-        else{
-            changeStatus(false)
-
-        }
-    
-      }
-
-    const changeStatus =async (val) => {
-        const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants/'+String(data.id), {
+    async function handleChange(e) {
+        const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled];
+        if(e.target.id == 'volumeControlEnabled') temp[0] = !temp[0]
+        else if(e.target.id == 'productDrawerEnabled') temp[1] = !temp[1];
+        else if(e.target.id == 'reportEnabled') temp[2] = !temp[2]
+        else temp[3] = !temp[3]
+        
+        const res = await fetch(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,{
             method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({status: val})
+            headers: {'content-type':'application/json'},
+            body: JSON.stringify({ features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}})
         })
         const response = await res.json()
         console.log(response)
-        
-        SetStatus(val)
-    }  
+        setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1], setReportEnabled(temp[2]), setLikeEnabled(temp[3]))
+    }
 
 
     return (
         <>
             <tr>
-                <td>{data.id}</td>
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
-                <td>{
+                <td>
                     <div class="form-check form-switch">
-                        
-                        
-                        <input class="form-check-input" 
-                        type="checkbox" role="switch" 
-                        id="flexSwitchCheckDefault"
-                        checked={status}
-                        onChange={clicked}/>
-                    
-                        
-
-                        
-                    
-                    
+                        <input class="form-check-input" type="checkbox" role="switch" id="volumeControlEnabled" checked = {volumeControlEnabled} 
+                        onChange={handleChange}/>
                     </div>
-                 }
+                
+                </td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="productDrawerEnabled" checked = {productDrawerEnabled}
+                        onChange={handleChange}/>
+                    </div>
+                
+                </td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="reportEnabled" checked={reportEnabled} 
+                        onChange={handleChange}/>
+                    </div>
+                
+                </td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="likeEnabled" checked={likeEnabled} 
+                        onChange={handleChange}/>
+                    </div>
+                
                 </td>
 
             </tr>

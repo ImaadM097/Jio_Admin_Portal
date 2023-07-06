@@ -25,7 +25,7 @@ const Tenants = () => {
     }, [navigate,token]);
 
     const getTenants = async () => {
-        const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
+        const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants')
         
 
         url.searchParams.append('page', 1); 
@@ -46,34 +46,38 @@ const Tenants = () => {
         }
     }
 
-    const tableHeaders = ['Id', 'Name', 'Domain', 'Active']
+    const tableHeaders = ['Name', 'Domain', 'Volume Control', 'Product Drawer', 'Report Enabled', 'Like enabled']
 
     async function handleSearch(e) {
+        let tempData = []
 
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
-        setSearch(true)
-        let tempData = []
-        if(searchTerm.length <= 2) {   await getTenants(); setSearch(false);    return }
         
-        for(let i=1; i<tableHeaders.length-1; i++) {
-            const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
-            const header = tableHeaders[i].toLowerCase()
-            // console.log(header)
+        if(searchTerm.length === 0 ) {await getTenants()}
+        if(searchTerm.length <= 2) return
+
+        setSearch(true)
+        for(let i=0; i<=1; i++) {
+            const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
+            let header = tableHeaders[i].toLowerCase()
             url.searchParams.append(header, searchTerm)
             url.searchParams.append('page', 1); 
             url.searchParams.append('limit', 10);
             const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
             const searchResult = await res.json()
-            // console.log(searchResult)
             tempData = tempData.concat(searchResult)
         }
-        if(tempData.length <= 10) setData(tempData)
+
+        if(tempData.length === 0) setAlert(true)
+        else if(tempData.length <= 10) {setData(tempData); setAlert(false)}
         else {
             const newTempData = tempData.slice(0, 10)
             setData(newTempData)
+            setAlert(false)
         }
         setSearch(false)
+        
     }
 
 
@@ -140,3 +144,6 @@ const Tenants = () => {
 }
 
 export default Tenants
+
+
+//https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants
