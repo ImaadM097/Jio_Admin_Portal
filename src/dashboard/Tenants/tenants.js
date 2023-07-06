@@ -46,7 +46,7 @@ const Tenants = () => {
         }
     }
 
-    const tableHeaders = ['Name', 'Domain', 'Volume Control', 'Product Drawer', 'Report Enabled', 'Like enabled']
+    const tableHeaders = ['Name', 'Domain', 'Features', 'Active']
 
     async function handleSearch(e) {
         let tempData = []
@@ -54,7 +54,7 @@ const Tenants = () => {
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
         
-        if(searchTerm.length === 0 ) {await getTenants()}
+        // if(searchTerm.length === 0 ) {await getTenants()}
         if(searchTerm.length <= 2) return
 
         setSearch(true)
