@@ -8,6 +8,7 @@ import '../../styles/tables.css'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
+import CreateTenant from "../../components/CreateTenant";
 const Tenants = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -99,6 +100,7 @@ const Tenants = () => {
                         
                         <div className='container'>
                             <h4>Tenants</h4>
+                            <CreateTenant/>
                         </div>
                         <div className='container' id='tableContainer'>
                             <table className='table'>

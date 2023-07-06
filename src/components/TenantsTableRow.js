@@ -39,10 +39,10 @@ const TenantsTableRow = ({ data, index }) => {
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
                 <td>{
-                    <div class="form-check form-switch">
+                    <div className="form-check form-switch">
                         
                         
-                        <input class="form-check-input" 
+                        <input className="form-check-input" 
                         type="checkbox" role="switch" 
                         id="flexSwitchCheckDefault"
                         checked={status}
