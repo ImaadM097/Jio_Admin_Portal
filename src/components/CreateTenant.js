@@ -57,7 +57,12 @@ const CreateTenant = ()=>{
         const response = await res.json()
         console.log(response)
         setsuccess(true)
-        
+        setFormData({
+            name:"",
+            active:true,
+            domain:"",
+        })
+        setVolumeControlEnabled(false); setProductDrawerEnabled(false); setReportEnabled(false); setLikeEnabled(false);
         
 
     }
@@ -74,7 +79,7 @@ const CreateTenant = ()=>{
                             <div className='modal-content text-center'>
                                 <div className='modal-header'>
                                     <h3>Add Tenant</h3>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target="#modal123"></button>
+                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target="#modal123" onClick={()=>{setsuccess(false)}}></button>
                                 </div>
                                 <div className="modal-body">
                                 
@@ -91,7 +96,7 @@ const CreateTenant = ()=>{
                                                 id="name"
                                                 name="name"
                                                 onChange={handleChange}
-                                                value={formData.username}
+                                                value={formData.name}
                                             
                                             />
                                         </div>
@@ -136,7 +141,7 @@ const CreateTenant = ()=>{
 
                                 </div>
                                 <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>{setsuccess(false)}}>Close</button>
                                     <button type="button" className="btn btn-primary" onClick={handleClick}>Create</button>
                                 </div>
                                 
