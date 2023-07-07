@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#mainTenantBody{
+    background-color: #fefae0;
+}
+#modalHeader{
+    display: flex;
+    flex-direction: column-reverse;
+}
+#tenantFormBody{
+    display: flex;
+    flex-direction: column;
+}
+#tenantFormBody form label{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    align-content: center;
+    font-size: 1rem;
+}
+#name{
+    border: 1px solid #003566;
+    border-radius: 5px;
+    opacity: 0.55;
+    text-align: center;
+}
+#domain{
+    border: 1px solid #003566;
+    border-radius: 5px;
+    opacity: 0.55;
+    text-align: center;
+}

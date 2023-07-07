@@ -17,7 +17,7 @@ const Dashboard = () => {
         return (
             <>
                 <div className='mainContainer'>
-                    <Sidebar id="SidebarTable" />
+                    <Sidebar />
                     <div className='RightSide'>
                         {/* <Navbar id="NavbarTable" /> */}
                         <div className="container">
