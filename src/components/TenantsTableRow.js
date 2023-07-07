@@ -11,13 +11,13 @@ const TenantsTableRow = ({ data, index }) => {
 
     async function handleChange(e) {
         const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled, active];
-        if(e.target.id == 'volumeControlEnabled') temp[0] = !temp[0]
-        else if(e.target.id == 'productDrawerEnabled') temp[1] = !temp[1];
-        else if(e.target.id == 'reportEnabled') temp[2] = !temp[2]
-        else if(e.target.id == 'active') temp[4] = !temp[4];
-        else temp[3] = !temp[3]
+        if(e.target.id === 'volumeControlEnabled') temp[0] = !temp[0]
+        else if(e.target.id === 'productDrawerEnabled') temp[1] = !temp[1];
+        else if(e.target.id === 'reportEnabled') temp[2] = !temp[2]
+        else if(e.target.id === 'active') temp[4] = !temp[4];
+        else temp[3] = (!temp[3])
         
-        if(e.target.id != 'active') {
+        if(e.target.id !== 'active') {
             const res = await fetch(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,{
                 method: 'PUT',
                 headers: {'content-type':'application/json'},
