@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Login from './login/login';
 import Tables from './dashboard/Comments/Tables';
 import Dashboard from './dashboard/main_dashboard/dashboard';
@@ -13,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
           <>
