@@ -5,12 +5,17 @@ import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import TenantsTableRow from "../../components/TenantsTableRow";
 import '../../styles/tables.css'
-
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Alert from '@mui/material/Alert';
+import CreateTenant from "../../components/CreateTenant";
 const Tenants = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
+    console.log(searchValue);
     const [search, setSearch] = useState(false)
-
+    const [alert,setAlert] = useState(false);
+    const [loader,setLoader] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     useEffect(() => {
@@ -18,10 +23,10 @@ const Tenants = () => {
             navigate('/login');
         }
         getTenants()
-    }, []);
+    }, [navigate,token]);
 
     const getTenants = async () => {
-        const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
+        const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants')
         
 
         url.searchParams.append('page', 1); 
@@ -32,45 +37,47 @@ const Tenants = () => {
             headers: { 'content-type': 'application/json' }
         })
         const data = await res.json()
-        setData(data)
+        if(data.length === 0 || data === null){
+            setAlert(true);
+            setLoader(false);
+        }
+        else{ 
+            setData(data);
+            setLoader(false);
+        }
     }
 
-    const tableHeaders = ['Id', 'Name', 'Domain', 'Active']
+    const tableHeaders = ['Name', 'Domain', 'Features', 'Active']
 
-    async function onSearchBarChange(e) {
+    async function handleSearch(e) {
+        let tempData = []
 
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
+        
+        // if(searchTerm.length === 0 ) {await getTenants()}
+        if(searchTerm.length <= 2) return
 
         setSearch(true)
-        let tempData = []
-        if(searchTerm.length <= 2) { setSearch(false);    return }
-        
-        
-    
-        for(let i=1; i<tableHeaders.length-1; i++) {
-            const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
-            const header = tableHeaders[i].toLowerCase()
-            // console.log(header)
+        for(let i=0; i<=1; i++) {
+            const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
+            let header = tableHeaders[i].toLowerCase()
             url.searchParams.append(header, searchTerm)
             url.searchParams.append('page', 1); 
             url.searchParams.append('limit', 10);
-            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}}).catch((error)=>{
-                console.log(error)
-            })
-            // if(!res.ok) setSearch(false)
-            const searchResult = await res.json() 
-            console.log(searchResult)
+            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
+            const searchResult = await res.json()
             tempData = tempData.concat(searchResult)
-            
         }
-        if(tempData.length <= 10) setData(tempData)
+
+        if(tempData.length === 0) setAlert(true)
+        else if(tempData.length <= 10) {setData(tempData); setAlert(false)}
         else {
             const newTempData = tempData.slice(0, 10)
             setData(newTempData)
+            setAlert(false)
         }
         setSearch(false)
-    
         
     }
 
@@ -85,8 +92,8 @@ const Tenants = () => {
                     <div className="tablediv">
                         
                             <div className='input-group' id="searchBar">
-                                <input type='text' className='form-control form-control-md' placeholder='Search...' 
-                                onChange={onSearchBarChange} />
+                                <input type='text' className='form-control form-control-md' placeholder='Search by name or domain..' 
+                                onChange={handleSearch} />
                                 {/* <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button> */}
                             </div>
                             {
@@ -97,6 +104,7 @@ const Tenants = () => {
                         
                         <div className='container'>
                             <h4>Tenants</h4>
+                            <CreateTenant/>
                         </div>
                         <div className='container' id='tableContainer'>
                             <table className='table'>
@@ -112,16 +120,20 @@ const Tenants = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(data == null || data.length==0) ? (
-                                        <h5>No data</h5>
-                                    ) : (
-                                        data.map((item, index) => {
-                                            return (
-                                                <TenantsTableRow data={item} index={index} />
-                                            )
-                                        })
-                                    )
-
+                                {loader && <Box sx={{ width: '100%' }}>
+                                            <LinearProgress />
+                                        </Box>}
+                                        {
+                                            alert && <Alert severity="warning">No data found!!</Alert>
+                                        }
+                                    {
+                                        (!alert && !loader)?(
+                                            data.map((item, index)=>{
+                                                return (
+                                                    <TenantsTableRow data={item} index={index}/>
+                                                )
+                                            })
+                                        ):''
                                     }
                                 </tbody>
                             </table>
@@ -134,3 +146,6 @@ const Tenants = () => {
 }
 
 export default Tenants
+
+
+//https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants

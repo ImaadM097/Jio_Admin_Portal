@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
-
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Alert from '@mui/material/Alert';
 import '../../styles/tables.css'
 import UsersTableRow from "../../components/usersTableRow";
-
+import CreateUser from "../../components/createUser";
 const Users = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
+    console.log(searchValue);
     const [search, setSearch] = useState(false)
-
+    const [alert,setAlert] = useState(false);
+    const [loader,setLoader] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     useEffect(() => {
@@ -19,7 +23,7 @@ const Users = () => {
             navigate('/login');
         }
         getUsers()
-    }, []);
+    }, [navigate,token]);
 
     const getUsers = async () => {
         const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
@@ -31,19 +35,25 @@ const Users = () => {
             headers: { 'content-type': 'application/json' }
         })
         const data = await res.json()
-        // console.log(data)
-        setData(data)
+        if(data.length === 0 || data === null){
+            setAlert(true);
+            setLoader(false);
+        }
+        else{ 
+            setData(data);
+            setLoader(false);
+        }
     }
 
     const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
 
     async function handleSearch(e) {
+
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-
-        if(searchTerm.length <= 2) { setSearch(false);    return }
+        if(searchTerm.length <= 2) {   await getUsers(); setSearch(false);    return }
         
         for(let i=1; i<tableHeaders.length-1; i++) {
             const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
@@ -76,7 +86,7 @@ const Users = () => {
                     <div className="tablediv">
                         
                             <div className='input-group' id="searchBar">
-                                <input type='text' className='form-control form-control-md' placeholder='Search...' 
+                                <input type='text' className='form-control form-control-md' placeholder='Search by username, tenant, role...' 
                                 onChange={handleSearch} />
                                 {/* <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button> */}
                             </div>
@@ -88,6 +98,7 @@ const Users = () => {
                         
                         <div className='container'>
                             <h4>Users</h4>
+                            <CreateUser/>
                         </div>
                         <div className='container' id='tableContainer'>
                             <table className='table'>
@@ -103,16 +114,20 @@ const Users = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(data == null || data.length==0) ? (
-                                        <h5>No data</h5>
-                                    ) : (
-                                        data.map((item, index) => {
-                                            return (
-                                                <UsersTableRow data={item} index={index} />
-                                            )
-                                        })
-                                    )
-
+                                {loader && <Box sx={{ width: '100%' }}>
+                                            <LinearProgress />
+                                        </Box>}
+                                        {
+                                            alert && <Alert severity="warning">No data found!!</Alert>
+                                        }
+                                    {
+                                        (!alert && !loader)?(
+                                            data.map((item, index)=>{
+                                                return (
+                                                    <UsersTableRow data={item} index={index}/>
+                                                )
+                                            })
+                                        ):''
                                     }
                                 </tbody>
                             </table>

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 // import Navbar from '../../components/navbar';
 import '../../styles/tables.css'
@@ -14,7 +13,7 @@ const Tables = () => {
         if(!token){
             navigate('/login');
         }
-    }, []);
+    }, [navigate,token]);
     const videos = response.data.videos;
     const totalCount = response.data.total;
     const count = (totalCount > 10) ? 10 : totalCount;
@@ -56,7 +55,6 @@ const Tables = () => {
                                             )
                                         })
                                     )
-                                    
                                     }
                                     </tbody>
                                 </table>
