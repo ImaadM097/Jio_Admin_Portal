@@ -8,7 +8,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 import '../../styles/tables.css'
 import UsersTableRow from "../../components/usersTableRow";
-
+import CreateUser from "../../components/createUser";
 const Users = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -98,6 +98,7 @@ const Users = () => {
                         
                         <div className='container'>
                             <h4>Users</h4>
+                            <CreateUser/>
                         </div>
                         <div className='container' id='tableContainer'>
                             <table className='table'>
