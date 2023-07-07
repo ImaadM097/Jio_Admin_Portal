@@ -9,7 +9,6 @@ import Tenants from './dashboard/Tenants/tenants';
 import Users from './dashboard/Users/users';
 
 function App() {  
-  
   return (
     <BrowserRouter>
       <Routes>
