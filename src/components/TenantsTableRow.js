@@ -1,23 +1,34 @@
 import React from 'react';
 import '../styles/tables.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { act } from 'react-dom/test-utils';
 
-const TenantsTableRow = ({ data, index }) => {
+const TenantsTableRow =  ({ data, index }) => {
     const [volumeControlEnabled, setVolumeControlEnabled] = useState(data.features.volumeControlEnabled);
     const [productDrawerEnabled, setProductDrawerEnabled] = useState(data.features.productDrawerEnabled);
     const [reportEnabled, setReportEnabled] = useState(data.features.reportEnabled);
     const [likeEnabled, setLikeEnabled] = useState(data.features.likeEnabled);
     const [active, setActive] = useState(data.active);
 
+    useEffect ( ()=>{
+        setVolumeControlEnabled(data.features.volumeControlEnabled);
+        setProductDrawerEnabled(data.features.productDrawerEnabled);
+        setReportEnabled(data.features.reportEnabled);
+        setLikeEnabled(data.features.likeEnabled);
+        setActive(data.active)
+
+
+     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled, data.features.active])
+
     async function handleChange(e) {
         const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled, active];
-        if(e.target.id == 'volumeControlEnabled') temp[0] = !temp[0]
-        else if(e.target.id == 'productDrawerEnabled') temp[1] = !temp[1];
-        else if(e.target.id == 'reportEnabled') temp[2] = !temp[2]
-        else if(e.target.id == 'active') temp[4] = !temp[4];
+        if(e.target.id === 'volumeControlEnabled') temp[0] = !temp[0]
+        else if(e.target.id === 'productDrawerEnabled') temp[1] = !temp[1];
+        else if(e.target.id === 'reportEnabled') temp[2] = !temp[2]
+        else if(e.target.id === 'active') temp[4] = !temp[4];
         else temp[3] = !temp[3]
         
-        if(e.target.id != 'active') {
+        if(e.target.id !== 'active') {
             const res = await fetch(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,{
                 method: 'PUT',
                 headers: {'content-type':'application/json'},
@@ -45,20 +56,22 @@ const TenantsTableRow = ({ data, index }) => {
     return (
         <>
             <tr>
+                <td>{data.id}</td>
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
                 <td>
-                    <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target={`#modal${index}`} id="featuresButton">
+                    <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target={`#modal${data.id}`} id="featuresButton">
                         Features
                     </button>
-                    <div className='modal fade' id={`modal${index}`}>
+                    <div className='modal fade' id={`modal${data.id}`}>
                         <div className='modal-dialog modal-dialog-centered'>
                             <div className='modal-content'>
                                 <div className='modal-header'>
                                     <h2>Enable/Disable Features</h2>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target={`#modal${index}`}></button>
+                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target={`#modal${data.id}`}></button>
                                 </div>
                                 <div className='modal-body' id='features'>
+                                    {/* <h4>{data.id}</h4> */}
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch" id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleChange}/>
                                     <h7>Volume Control</h7>

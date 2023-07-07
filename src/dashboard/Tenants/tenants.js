@@ -47,7 +47,7 @@ const Tenants = () => {
         }
     }
 
-    const tableHeaders = ['Name', 'Domain', 'Features', 'Active']
+    const tableHeaders = ['Id', 'Name', 'Domain', 'Features', 'Active']
 
     async function handleSearch(e) {
         let tempData = []
@@ -59,7 +59,7 @@ const Tenants = () => {
         if(searchTerm.length <= 2) return
 
         setSearch(true)
-        for(let i=0; i<=1; i++) {
+        for(let i=1; i<=2; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
             let header = tableHeaders[i].toLowerCase()
             url.searchParams.append(header, searchTerm)
