@@ -1,9 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import '../styles/createTenant.css'
 const CreateTenant = ()=>{
-    const navigate = useNavigate();
     const [formData,setFormData] = useState({
         name:"",
         active:true,
@@ -63,8 +61,6 @@ const CreateTenant = ()=>{
             domain:"",
         })
         setVolumeControlEnabled(false); setProductDrawerEnabled(false); setReportEnabled(false); setLikeEnabled(false);
-        
-
     }
 
     return(

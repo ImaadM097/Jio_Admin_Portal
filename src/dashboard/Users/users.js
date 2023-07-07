@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Sidebar from "../../components/Sidebar";
+// import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -79,8 +79,8 @@ const Users = () => {
 
     return (
         <>
-            <div className='mainContainer' id="mainTable">
-                <Sidebar id="SidebarTable" />
+            {/* <div className='mainContainer' id="mainTable">
+                <Sidebar id="SidebarTable" /> */}
                 <div className='RightSide'>
                     {/* <Navbar id="NavbarTable" /> */}
                     <div className="tablediv">
@@ -134,7 +134,7 @@ const Users = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }

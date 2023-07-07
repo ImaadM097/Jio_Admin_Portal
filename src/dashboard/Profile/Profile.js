@@ -1,4 +1,4 @@
-import Sidebar from '../../components/Sidebar';
+// import Sidebar from '../../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/profile.css';
 import { useEffect } from 'react';
@@ -13,8 +13,8 @@ function Profile(){
         }
     }, [navigate,token]);
     return (
-        <div className='mainProfileDiv'>
-            <Sidebar/>
+        // <div className='mainProfileDiv'>
+        //     <Sidebar/>
             <div className='profileContent'>
                 <div className="profileCard">
                     <h2>Profile</h2>
@@ -23,7 +23,7 @@ function Profile(){
                     <h4>Role</h4>
                 </div>
             </div> 
-        </div>
+        // </div>
     );
 }
 
