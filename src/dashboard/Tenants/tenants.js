@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 import CreateTenant from "../../components/CreateTenant";
+import fetcher from "../../fetcher";
 const Tenants = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -28,15 +29,7 @@ const Tenants = () => {
     const getTenants = async () => {
         const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants')
         
-
-        url.searchParams.append('page', 1); 
-        url.searchParams.append('limit', 10);
-
-        const res = await fetch(url, {
-            method: 'GET',
-            headers: { 'content-type': 'application/json' }
-        })
-        const data = await res.json()
+        const data = await fetcher(url, 'GET', [['page', 1], ['limit', 10]])
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -62,11 +55,12 @@ const Tenants = () => {
         for(let i=1; i<=2; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
             let header = tableHeaders[i].toLowerCase()
-            url.searchParams.append(header, searchTerm)
-            url.searchParams.append('page', 1); 
-            url.searchParams.append('limit', 10);
-            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
-            const searchResult = await res.json()
+            const searchResult = await fetcher(
+                url,
+                'GET',
+                [[header, searchTerm], ['page', 1],['limit', 10]]
+            )
+            
             tempData = tempData.concat(searchResult)
         }
 

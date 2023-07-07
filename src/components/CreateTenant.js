@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../styles/createTenant.css'
+import fetcher from "../fetcher";
 const CreateTenant = ()=>{
     const navigate = useNavigate();
     const [formData,setFormData] = useState({
@@ -49,12 +50,13 @@ const CreateTenant = ()=>{
             ...formData,features:{volumeControlEnabled:volumeControlEnabled, productDrawerEnabled:productDrawerEnabled, reportEnabled:reportEnabled, likeEnabled:likeEnabled}
         }
         console.log(JSON.stringify(newdata))
-        const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newdata)
-        })
-        const response = await res.json()
+        // const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/', {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     body: JSON.stringify(newdata)
+        // })
+        // const response = await res.json()
+        const response = await fetcher(new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/'), 'POST', [], newdata)
         console.log(response)
         setsuccess(true)
         setFormData({

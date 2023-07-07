@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import fetcher from "../fetcher";
 import '../styles/createUser.css'
 
 const CreateUser = ()=>{
@@ -42,12 +43,13 @@ const CreateUser = ()=>{
         let newdata = {...formData,role:role}
         console.log(newdata);
 
-        const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newdata)
-        })
-        const response = await res.json()
+        // const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/', {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     body: JSON.stringify(newdata)
+        // })
+        // const response = await res.json()
+        const response = await fetcher(new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'), 'POST', [], newdata)
         console.log(response)
         setsuccess(true)
     }

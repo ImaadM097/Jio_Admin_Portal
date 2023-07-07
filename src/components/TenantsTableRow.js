@@ -2,6 +2,8 @@ import React from 'react';
 import '../styles/tables.css';
 import { useState, useEffect } from 'react';
 import { act } from 'react-dom/test-utils';
+import fetcher from '../fetcher';
+//{ features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}
 
 const TenantsTableRow =  ({ data, index }) => {
     const [volumeControlEnabled, setVolumeControlEnabled] = useState(data.features.volumeControlEnabled);
@@ -29,22 +31,21 @@ const TenantsTableRow =  ({ data, index }) => {
         else temp[3] = !temp[3]
         
         if(e.target.id !== 'active') {
-            const res = await fetch(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,{
-                method: 'PUT',
-                headers: {'content-type':'application/json'},
-                body: JSON.stringify({ features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}})
-            })
-            const response = await res.json()
+            
+            const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
+                'PUT',
+                [],
+                {features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}}
+            )
             console.log(response)
             setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1]); setReportEnabled(temp[2]); setLikeEnabled(temp[3]);
         }
         else {
-            const res = await fetch(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,{
-                method: 'PUT',
-                headers: {'content-type':'application/json'},
-                body: JSON.stringify({ active: temp[4]})
-            })
-            const response = await res.json()
+            const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
+                'PUT',
+                [],
+                {active : temp[4]}
+            )
             console.log(response)
             setActive(temp[4]);
         }
