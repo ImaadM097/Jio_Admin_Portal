@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import '../styles/createTenant.css'
 const CreateTenant = ()=>{
     const navigate = useNavigate();
     const [formData,setFormData] = useState({
@@ -76,19 +76,13 @@ const CreateTenant = ()=>{
                     </button>
                     <div className='modal fade' id="modal123">
                         <div className='modal-dialog modal-dialog-centered'>
-                            <div className='modal-content text-center'>
-                                <div className='modal-header'>
+                            <div className='modal-content text-center' id = 'mainTenantBody'>
+                                <div className='modal-header' id="modalHeader">
                                     <h3>Add Tenant</h3>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target="#modal123" onClick={()=>{setsuccess(false)}}></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target="#modal123" onClick={()=>{setsuccess(false)}}></button>
                                 </div>
-                                <div className="modal-body">
-                                
-
-                                
+                                <div className="modal-body" id="tenantFormBody">
                                 <form onSubmit={handleClick}>
-                                    
-                                        
-                                        
                                         <div className="form-group mt-3">
                                             <label>Name : </label>
                                             <input
@@ -97,7 +91,6 @@ const CreateTenant = ()=>{
                                                 name="name"
                                                 onChange={handleChange}
                                                 value={formData.name}
-                                            
                                             />
                                         </div>
                                         <div className="form-group">
@@ -117,7 +110,7 @@ const CreateTenant = ()=>{
 
                                         <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" name="" role="switch" id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleFeatureChange}/>
-                                        <h7>Volume Control</h7>
+                                        <h7>Volume Drawer</h7>
                                         </div>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="productDrawerEnabled" checked = {productDrawerEnabled} onChange={handleFeatureChange}/>

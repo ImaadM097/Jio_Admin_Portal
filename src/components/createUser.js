@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '../styles/createUser.css'
 
 const CreateUser = ()=>{
     const navigate = useNavigate();
@@ -49,9 +50,6 @@ const CreateUser = ()=>{
         const response = await res.json()
         console.log(response)
         setsuccess(true)
-        
-        
-
     }
 
     return(
@@ -63,74 +61,51 @@ const CreateUser = ()=>{
                     </button>
                     <div className='modal fade' id="modal123">
                         <div className='modal-dialog modal-dialog-centered '>
-                            <div className='modal-content text-center'>
-                                <div className='modal-header'>
+                            <div className='modal-content text-center' id = 'createUserMainBody'>
+                                <div className='modal-header'id='modalHeader'>
                                     <h3>Add User</h3>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target="#modal123"></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target="#modal123"></button>
                                 </div>
-                                <div className="modal-body">
-                                
-
-                                
+                                <div className="modal-body" id = 'userFormBody'>
                                 <form onSubmit={handleClick}>
-                                    
-                                        
-                                        
-                                        <div className="form-group mt-1">
-                                            <label>UserName : </label>
+                                        <div className="form-group mt-1" id="formUsername">
+                                            <label htmlFor="user_name">UserName : </label>
                                             <input
                                                 type="text"
                                                 id="user_name"
                                                 name="user_name"
                                                 onChange={handleChange}
-                                                value={formData.user_name}
-                                            
+                                                value={formData.user_name} 
                                             />
                                         </div>
-                                        <div className="form-group mt-1">
-                                            <label>Tenant : </label>
+                                        <div className="form-group mt-1" id='usernameInp'>
+                                            <label htmlFor="tenant">Tenant : </label>
                                             <input
                                                 type="text"
                                                 id="tenant"
                                                 name="tenant"
                                                 onChange={handleChange}
                                                 value={formData.tenant}
-                                            
-                                            />
-                                            
+                                            />                                            
                                         </div>
                                         <div className="form-group mt-1" onClick={handleroleChange}>
                                             <div className="m-2">
-                                                Admin : 
+                                                {"Admin : "}
                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-
-                                                </div>
-                                            
-                                            Moderator : 
+                                                </div>                                           
+                                                {"Moderator : "} 
                                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
-
                                         </div>
-                                        {success && <p style={{color:'green'}}>Created</p>}
-                                        
-                                       
-                                    
+                                        {success && <p style={{color:'green'}}>Created</p>} 
                                 </form>
-                                
-
-
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" className="btn btn-primary" onClick={handleClick}>Create</button>
                                 </div>
-                                
-                               
                             </div>
                         </div>
                     </div>
-        
-        
-        
         </>
     )
 }

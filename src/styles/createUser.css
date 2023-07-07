@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#createUserMainBody{
+    background-color: #fefae0;
+}
+#modalHeader{
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #003566;
+    color: white;
+}
+#userFormBody{
+    display: flex;
+    flex-direction: column;
+}
+#userFormBody form label{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+}
+#user_name{
+    border: 1px solid #003566;
+    border-radius: 5px;
+    opacity: 0.55;
+    text-align: center;
+}
+#tenant{
+    border: 1px solid #003566;
+    border-radius: 5px;
+    opacity: 0.55;
+    text-align: center;
+}
+.form-switch{
+    display: flex;
+    justify-content: center;
+}
+.form-switch h7{
+    margin-left: 1rem;
+}
