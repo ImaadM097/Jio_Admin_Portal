@@ -1,7 +1,10 @@
 import React from "react";
 import { useState } from "react";
-
-import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import fetcher from "../fetcher";
 
 import '../styles/createUser.css'
@@ -70,7 +73,7 @@ const CreateUser = ()=>{
                                     <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target="#modal123"></button>
                                 </div>
                                 <div className="modal-body" id = 'userFormBody'>
-                                <form onSubmit={handleClick}>
+                                {/* <form onSubmit={handleClick}>
                                         <div className="form-group mt-1" id="formUsername">
                                             <label htmlFor="user_name">UserName : </label>
                                             <input
@@ -100,7 +103,45 @@ const CreateUser = ()=>{
                                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"/>
                                         </div>
                                         {success && <p style={{color:'green'}}>Created</p>} 
-                                </form>
+                                </form> */}
+                                <div id="boxBody">
+                                    <Box
+                                        component="form"
+                                        sx={{
+                                            '& .MuiTextField-root': { m: 1, width: '20ch' },
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                        onSubmit={handleClick}
+                                        >
+                                            <TextField
+                                            required
+                                            id="filled-required"
+                                            label="Name"
+                                            defaultValue=""
+                                            variant="filled"
+                                            //onChange={handleChange}
+                                            //value={formData.name}
+                                            />
+                                            <TextField
+                                            required
+                                            id="filled-required"
+                                            label="Domain"
+                                            defaultValue=""
+                                            variant="filled"
+                                            //onChange={handleChange}
+                                            //value={formData.domain}
+                                            />
+                                            <RadioGroup
+                                                aria-labelledby="demo-radio-buttons-group-label"
+                                                defaultValue="moderator"
+                                                name="radio-buttons-group"
+                                            >
+                                                <FormControlLabel id ="roleGroup" value="admin" control={<Radio />} label="admin" />
+                                                <FormControlLabel id ="roleGroup" value="moderator" control={<Radio />} label="moderator" />
+                                            </RadioGroup>
+                                    </Box>
+                                    </div>
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

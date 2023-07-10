@@ -16,27 +16,15 @@
     display: flex;
     flex-direction: column;
 }
-#userFormBody form label{
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-    font-size: 1rem;
-}
-#user_name{
-    border: 1px solid #003566;
-    border-radius: 5px;
-    opacity: 0.55;
-    text-align: center;
-}
-#tenant{
-    border: 1px solid #003566;
-    border-radius: 5px;
-    opacity: 0.55;
-    text-align: center;
-}
 .form-switch{
     display: flex;
     justify-content: center;
 }
 .form-switch h7{
     margin-left: 1rem;
+}
+#roleGroup{
+    align-content: center;
+    margin: 0;
+    margin-left: 3rem;
 }
