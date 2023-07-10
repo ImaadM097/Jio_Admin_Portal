@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import '../styles/charts.css'
-import fetcher from "../fetcher";
+// import fetcher from "../fetcher";
 var r = document.querySelector(':root'); // for inheriting color from app.css
 
 class Chart2 extends Component {

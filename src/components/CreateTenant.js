@@ -23,6 +23,7 @@ const CreateTenant = ()=>{
     const [reportEnabled, setReportEnabled] = useState(false);
     const [likeEnabled, setLikeEnabled] = useState(false);
     const [success,setsuccess] = useState(false);
+    console.log(success)
     const handleChange = (e)=>{
         // const changedField = e.target.name;
         // const newVal = e.target.value;

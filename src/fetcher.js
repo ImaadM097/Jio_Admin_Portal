@@ -4,7 +4,7 @@ async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) 
 
     if(searchParamsList.length !== 0) {
         searchParamsList.map((param)=>{
-            url.searchParams.append(param[0], param[1])
+            return url.searchParams.append(param[0], param[1])
         })
         console.log(url)
     }

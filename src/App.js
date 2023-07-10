@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-d
 import Login from './login/login';
 import Tables from './dashboard/Comments/Tables';
 import Dashboard from './dashboard/main_dashboard/dashboard';
-import Profile from './dashboard/Profile/Profile';
+// import Profile from './dashboard/Profile/Profile';
 import Videos from './dashboard/Videos/videos';
 import Tenants from './dashboard/Tenants/tenants';
 import Users from './dashboard/Users/users';

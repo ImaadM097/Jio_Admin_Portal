@@ -20,9 +20,7 @@ const TenantsTableRow =  ({ data, index }) => {
         setReportEnabled(data.features.reportEnabled);
         setLikeEnabled(data.features.likeEnabled);
         setActive(data.active)
-
-
-     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled, data.features.active])
+     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled, data.features.active,data.active])
 
     async function handleChange(e) {
         const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled, active];

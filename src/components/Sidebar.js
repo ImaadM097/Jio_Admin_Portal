@@ -117,7 +117,7 @@ function Sidebar(){
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1,transitionTimingFunction:'ease-out',fontWeight:'bold' }}
+              sx={{flexGrow: 1,transitionTimingFunction:'ease-out',fontWeight:'bold' }}
             >
               JioStream
             </Typography>}

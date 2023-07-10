@@ -81,11 +81,11 @@ tr {
     margin-bottom: 2rem;
 }
 #featuresButton {
-    background-color: var(--color-primary);
+    background-color: #669bbc;
     color: white;
 }
 #commentCountButton {
-    background-color: var(--color-primary);
+    background-color: #669bbc;
     color: white;
 }
 #activeTenant{
