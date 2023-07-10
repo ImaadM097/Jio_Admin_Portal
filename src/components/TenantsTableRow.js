@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-
 import fetcher from '../fetcher';
 //{ features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}
 
@@ -21,9 +20,7 @@ const TenantsTableRow =  ({ data, index }) => {
         setReportEnabled(data.features.reportEnabled);
         setLikeEnabled(data.features.likeEnabled);
         setActive(data.active)
-
-
-     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled, data.features.active])
+     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled, data.features.active,data.active])
 
     async function handleChange(e) {
         const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled, active];
@@ -65,7 +62,7 @@ const TenantsTableRow =  ({ data, index }) => {
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
                 <td>
-                    <button className='btn btn-primary' data-bs-toggle="modal" data-bs-target={`#modal${data.id}`} id="featuresButton">
+                    <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${data.id}`} id="featuresButton">
                         Features
                     </button>
                     <div className='modal fade' id={`modal${data.id}`}>
@@ -89,8 +86,8 @@ const TenantsTableRow =  ({ data, index }) => {
                     </div>
                 </td>
                 <td>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="active" checked = {active} onChange={handleChange}/>
+                <div class="form-check form-switch" id='activeContainerTenant'>
+                    <input class="form-check-input" type="checkbox" role="switch" id="activeTenant" checked = {active} onChange={handleChange}/>
                 </div>
                 </td>
             </tr>

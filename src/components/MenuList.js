@@ -7,7 +7,6 @@ import CommentIcon from '@mui/icons-material/Comment';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GroupIcon from '@mui/icons-material/Group';
 import LayersIcon from '@mui/icons-material/Layers';
 

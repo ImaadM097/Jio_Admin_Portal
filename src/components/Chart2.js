@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import '../styles/charts.css'
-import fetcher from "../fetcher";
+// import fetcher from "../fetcher";
+var r = document.querySelector(':root'); // for inheriting color from app.css
+
 class Chart2 extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,8 @@ class Chart2 extends Component {
                 },
                 xaxis: {
                     categories: [1896, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-                }
+                },
+                colors: [getComputedStyle(r).getPropertyValue('--color-primary')]
             },
             series: [
                 {

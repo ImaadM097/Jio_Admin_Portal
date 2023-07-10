@@ -15,7 +15,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountMenu from './AccountMenu';
-
+var r = document.querySelector(':root'); // for inheriting color from app.css
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -59,10 +59,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       },
     }),
   );
+  
   const defaultTheme = createTheme({
     palette: {
       primary: {
-        main: '#003566',
+        main: getComputedStyle(r).getPropertyValue('--color-primary'),
       },
       secondary: {
         light: '#0066ff',
@@ -116,14 +117,14 @@ function Sidebar(){
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1,transitionTimingFunction:'ease-out',fontWeight:'bold' }}
+              sx={{flexGrow: 1,transitionTimingFunction:'ease-out',fontWeight:'bold' }}
             >
               JioStream
             </Typography>}
             <AccountMenu/>
           </Toolbar>
         </AppBar>
-        <Drawer PaperProps={{sx:{backgroundColor:'#fefae0'}}}variant="permanent" open={open}>
+        <Drawer PaperProps={{sx:{backgroundColor:getComputedStyle(r).getPropertyValue('--color-tertiary')}}}variant="permanent" open={open}>
         <Toolbar
           sx={{
             display: 'flex',

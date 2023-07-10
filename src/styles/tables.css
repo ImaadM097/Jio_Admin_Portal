@@ -26,7 +26,7 @@
 }
 
 .table thead tr th{
-    background-color: #003566;
+    background-color: var(--color-primary);
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -42,7 +42,7 @@
 }
 
 .table tbody tr:last-of-type {
-    border-bottom: 2px solid #003566;
+    border-bottom: 2px solid var(--color-primary);
 }
 
 .table tbody tr.active-row {
@@ -75,8 +75,34 @@ tr {
     display: flex;
 }
 #playVideoBtn {
-    background-color: white;
+    background-color: transparent;
 }
 #barChart{
     margin-bottom: 2rem;
+}
+#featuresButton {
+    background-color: #669bbc;
+    color: white;
+}
+#commentCountButton {
+    background-color: #669bbc;
+    color: white;
+}
+#activeTenant{
+    margin-left: -5em;
+ }
+ #activeContainerTenant {
+     display: flex;
+     flex-wrap: wrap;
+     align-content: center;
+     justify-content: center;
+ }
+#activeUser {
+    margin-left: -5.5em;
+}
+#activeContainerUser {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }

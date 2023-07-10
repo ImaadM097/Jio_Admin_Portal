@@ -1,3 +1,13 @@
+:root {
+  /* --color-primary:#ffffff;
+  --color-secondary: #000000;
+  --color-tertiary: #565656; */
+
+  --color-primary:#003566;
+  --color-secondary: #eff7f6;
+  --color-tertiary: #fff1e6;
+}
+
 #searchBar {
   min-width: 35vw;
 }

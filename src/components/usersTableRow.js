@@ -37,12 +37,13 @@ const UsersTableRow = ({ data, index }) => {
                 <td>{data.role}</td>
                 
                 <td>{
-                    <div class="form-check form-switch">
-                       <input class="form-check-input" 
+                    <div class="form-check form-switch" id='activeContainerUser'>
+                       <input class="form-check-input"  
                         type="checkbox" role="switch" 
-                        id="flexSwitchCheckDefault"
+                        id="activeUser"
                         checked={status}
-                        onChange={clicked}/>
+                        onChange={clicked}
+                        />
                     
                     </div>
                  }

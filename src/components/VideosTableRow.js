@@ -15,14 +15,14 @@ const TableRow = ({data, index}) => {
                 <td>{data.duration}</td>
                 <td>
                     <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${index}`} id="playVideoBtn">
-                        <img alt=""src='/images/video-play-icon-1.jpg' width={'25'} height={'25'}></img>
+                        <img style={{borderRadius:"50%"}}alt=""src='/images/video-play-icon-1.jpg' width={'25'} height={'25'}></img>
                     </button>
                     <div className='modal fade' id={`modal${index}`}>
                         <div className='modal-dialog modal-dialog-centered modal-lg'>
                             <div className='modal-content'>
-                                <div className='modal-header'>
+                                <div className='modal-header' id='modalHeader'>
                                     <h2>Play Video</h2>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target={`#modal${index}`}></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${index}`}></button>
                                 </div>
                                 <div className='modal-body' id='videoPlayer'>
                                     <ReactPlayer url={data.video} />

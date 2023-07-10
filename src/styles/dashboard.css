@@ -5,7 +5,7 @@
     display: block;
     flex-direction: row;
     flex: 1;
-    background-color: #eff7f6;
+    background-color: var(--color-secondary);
 }
 
 #chartContainer {
@@ -27,7 +27,7 @@
     margin: 2rem;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     border-radius: 2rem;
-    background-color: #fefae0;
+    background-color: var(--color-tertiary);
 }
 #chartCol2{
     display: flex;
@@ -36,7 +36,7 @@
     margin: 2rem;
     box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
     border-radius: 2rem;
-    background-color: #fefae0;
+    background-color: var(--color-tertiary);
     margin-bottom: 6rem;
     padding:2rem;
 }
