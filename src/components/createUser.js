@@ -19,7 +19,7 @@ const CreateUser = ()=>{
     //     status:true,
         
     // });
-    const [success,setsuccess] = useState(false);
+    // const [success,setsuccess] = useState(false);
 
     const handleChange = (e)=>{
         // const changedField = e.target.name;
