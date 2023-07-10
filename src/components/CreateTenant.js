@@ -120,7 +120,7 @@ const CreateTenant = ()=>{
                                             value={formDomain}
                                             />
                                             <FormGroup>
-                                            <h4>Features:</h4>
+                                            <h5 id="featureHeading">Features:</h5>
                                             <FormControlLabel id="featureButtons" control={<Switch id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleFeatureChange} />} label="Volume Drawer" />
                                             <FormControlLabel id="featureButtons" control={<Switch id="productDrawerEnabled" checked = {productDrawerEnabled} onChange={handleFeatureChange}/>} label="Product Drawer" />
                                             <FormControlLabel id="featureButtons" control={<Switch id="reportEnabled" checked = {reportEnabled} onChange={handleFeatureChange}/>} label="Report Enabled" />
