@@ -20,9 +20,9 @@ const TableRow = ({data, index}) => {
                     <div className='modal fade' id={`modal${index}`}>
                         <div className='modal-dialog modal-dialog-centered modal-lg'>
                             <div className='modal-content'>
-                                <div className='modal-header'>
+                                <div className='modal-header' id='modalHeader'>
                                     <h2>Play Video</h2>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target={`#modal${index}`}></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${index}`}></button>
                                 </div>
                                 <div className='modal-body' id='videoPlayer'>
                                     <ReactPlayer url={data.video} />
