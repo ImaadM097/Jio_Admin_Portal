@@ -7,6 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 
 import '../styles/createTenant.css'
+import fetcher from "../fetcher";
 const CreateTenant = ()=>{
     const [formData,setFormData] = useState({
         name:"",
@@ -47,12 +48,13 @@ const CreateTenant = ()=>{
             ...formData,features:{volumeControlEnabled:volumeControlEnabled, productDrawerEnabled:productDrawerEnabled, reportEnabled:reportEnabled, likeEnabled:likeEnabled}
         }
         console.log(JSON.stringify(newdata))
-        const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newdata)
-        })
-        const response = await res.json()
+        // const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/', {
+        //     method: 'POST',
+        //     headers: { 'content-type': 'application/json' },
+        //     body: JSON.stringify(newdata)
+        // })
+        // const response = await res.json()
+        const response = await fetcher(new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/'), 'POST', [], newdata)
         console.log(response)
         setsuccess(true)
         setFormData({

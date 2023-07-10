@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import '../styles/charts.css'
+import fetcher from "../fetcher";
 class Chart2 extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +37,7 @@ class Chart2 extends Component {
             //headers: { 'content-type': 'application/json' }
         })
         const newdata = await res.json()
+        // const newdata = await fetcher(url, 'GET', [], {})
         console.log(newdata)
 
         newSeries.push({name:"series-1",data:newdata})
