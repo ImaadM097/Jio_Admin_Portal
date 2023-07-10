@@ -1,5 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+
 import '../styles/createTenant.css'
 const CreateTenant = ()=>{
     const [formData,setFormData] = useState({
@@ -13,9 +19,7 @@ const CreateTenant = ()=>{
     const [reportEnabled, setReportEnabled] = useState(false);
     const [likeEnabled, setLikeEnabled] = useState(false);
     const [success,setsuccess] = useState(false);
-
     const handleChange = (e)=>{
-        
         const changedField = e.target.name;
         const newVal = e.target.value;
         
@@ -32,11 +36,7 @@ const CreateTenant = ()=>{
         else if(e.target.id === 'productDrawerEnabled') temp[1] = !temp[1];
         else if(e.target.id ==='reportEnabled') temp[2] = !temp[2]
         else temp[3] = !temp[3]
-        
-
         setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1]); setReportEnabled(temp[2]); setLikeEnabled(temp[3]);
-        
-        
     }
 
 
@@ -65,7 +65,6 @@ const CreateTenant = ()=>{
 
     return(
         <>
-        
                     <button className='btn  btn-outline-secondary float-end mb-4' data-bs-toggle="modal" data-bs-target="#modal123" >
                         Add Tenant
                         {/* <img alt=""src='/images/download.png' width={'45'} height={'25'}></img> */}
@@ -78,8 +77,44 @@ const CreateTenant = ()=>{
                                     <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target="#modal123" onClick={()=>{setsuccess(false)}}></button>
                                 </div>
                                 <div className="modal-body" id="tenantFormBody">
-                                <form onSubmit={handleClick}>
-                                        <div className="form-group mt-3">
+                                    <div id="boxBody">
+                                    <Box
+                                        component="form"
+                                        sx={{
+                                            '& .MuiTextField-root': { m: 1, width: '20ch' },
+                                        }}
+                                        noValidate
+                                        autoComplete="off"
+                                        onSubmit={handleClick}
+                                        >
+                                            <TextField
+                                            required
+                                            id="filled-required"
+                                            label="Name"
+                                            defaultValue=""
+                                            variant="filled"
+                                            //onChange={handleChange}
+                                            //value={formData.name}
+                                            />
+                                            <TextField
+                                            required
+                                            id="filled-required"
+                                            label="Domain"
+                                            defaultValue=""
+                                            variant="filled"
+                                            //onChange={handleChange}
+                                            //value={formData.domain}
+                                            />
+                                            <FormGroup>
+                                            <h4>Features:</h4>
+                                            <FormControlLabel id="featureButtons" control={<Switch id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleFeatureChange} />} label="Volume Drawer" />
+                                            <FormControlLabel id="featureButtons" control={<Switch id="productDrawerEnabled" checked = {productDrawerEnabled} onChange={handleFeatureChange}/>} label="Product Drawer" />
+                                            <FormControlLabel id="featureButtons" control={<Switch id="reportEnabled" checked = {reportEnabled} onChange={handleFeatureChange}/>} label="Report Enabled" />
+                                            <FormControlLabel id="featureButtons" control={<Switch id="likeEnabled" checked = {likeEnabled} onChange={handleFeatureChange}/>} label="Like Enabled" />
+                                            </FormGroup>
+                                    </Box>
+
+                                        {/* <div className="form-group mt-3" id="tenantCol">
                                             <label>Name : </label>
                                             <input
                                                 type="text"
@@ -89,7 +124,7 @@ const CreateTenant = ()=>{
                                                 value={formData.name}
                                             />
                                         </div>
-                                        <div className="form-group">
+                                        <div className="form-group" id = "tenantCol">
                                             <label>Domain : </label>
                                             <input
                                                 type="text"
@@ -97,13 +132,10 @@ const CreateTenant = ()=>{
                                                 name="domain"
                                                 onChange={handleChange}
                                                 value={formData.domain}
-                                            
                                             />
-                                            
-                                        </div>
-
-                                        <h3>Features:</h3>
-
+                                        </div> */}
+                                    </div>
+                                        {/* <h3>Features:</h3>
                                         <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" name="" role="switch" id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleFeatureChange}/>
                                         <h7>Volume Drawer</h7>
@@ -120,21 +152,12 @@ const CreateTenant = ()=>{
                                             <input class="form-check-input" type="checkbox" role="switch" id="likeEnabled" checked = {likeEnabled} onChange={handleFeatureChange}/>
                                             <h7>Like Enabled</h7>
                                         </div>
-                                        {success && <p style={{color:'green'}}>Created</p>}
-                                        
-                                       
-                                    
-                                </form>
-                                
-
-
+                                        {success && <p style={{color:'green'}}>Created</p>} */}
                                 </div>
                                 <div className="modal-footer">
                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={()=>{setsuccess(false)}}>Close</button>
                                     <button type="button" className="btn btn-primary" onClick={handleClick}>Create</button>
                                 </div>
-                                
-                               
                             </div>
                         </div>
                     </div>
