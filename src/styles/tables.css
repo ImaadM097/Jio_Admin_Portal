@@ -80,3 +80,29 @@ tr {
 #barChart{
     margin-bottom: 2rem;
 }
+#featuresButton {
+    background-color: var(--color-primary);
+    color: white;
+}
+#commentCountButton {
+    background-color: var(--color-primary);
+    color: white;
+}
+#activeTenant{
+    margin-left: -5em;
+ }
+ #activeContainerTenant {
+     display: flex;
+     flex-wrap: wrap;
+     align-content: center;
+     justify-content: center;
+ }
+#activeUser {
+    margin-left: -5.5em;
+}
+#activeContainerUser {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}

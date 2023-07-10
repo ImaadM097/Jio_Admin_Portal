@@ -35,7 +35,7 @@ const Tables = () => {
                             <h4>Comments</h4>
                         </div>
                             <div className='container' id='tableContainer'>
-                                <table className='table'>
+                                <table className='table table-striped'>
                                     <thead>
                                         <tr>
                                             <th>Channel</th>
