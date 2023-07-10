@@ -6,7 +6,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import fetcher from "../fetcher";
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import '../styles/createUser.css'
 
 const CreateUser = ()=>{
@@ -130,7 +133,7 @@ const CreateUser = ()=>{
                                             onChange={handleChange}
                                             value={formName}
                                             />
-                                            <TextField
+                                            {/* <TextField
                                             required
                                             id="filled-requiredTenant"
                                             label="Tenant"
@@ -138,7 +141,23 @@ const CreateUser = ()=>{
                                             variant="filled"
                                             onChange={handleChange}
                                             value={formTenant}
-                                            />
+                                            /> */}
+                                            <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+                                                    <InputLabel id="demo-simple-select-label">Tenant</InputLabel>
+                                                    <Select
+                                                    required
+                                                    labelId="demo-simple-select-filled-label"
+                                                    id="demo-simple-select-filled"
+                                                    value={formTenant}
+                                                    label="Tenant"
+                                                    onChange={handleChange}
+                                                    >
+                                                    <MenuItem value={"Morissette Group"}>Morissette Group</MenuItem>
+                                                    <MenuItem value={"Hintz Inc"}>Hintz Inc</MenuItem>
+                                                    <MenuItem value={"Auer - Terry"}>Auer - Terry</MenuItem>
+                                                    </Select>
+                                            </FormControl>
+                                            <h5 id="roleHeading">Role:</h5>
                                             <RadioGroup
                                                 aria-labelledby="demo-radio-buttons-group-label"
                                                 defaultValue="moderator"
