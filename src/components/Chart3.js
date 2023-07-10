@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import '../styles/charts.css'
+import fetcher from "../fetcher";
 class Chart3 extends Component {
     constructor(props) {
         super(props);
@@ -21,11 +22,12 @@ class Chart3 extends Component {
         const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Tenants')
         
 
-        const res = await fetch(url, {
-            method: 'GET',
-            headers: { 'content-type': 'application/json' }
-        })
-        const newdata = await res.json()
+        // const res = await fetch(url, {
+        //     method: 'GET',
+        //     headers: { 'content-type': 'application/json' }
+        // })
+        // const newdata = await res.json()
+        const newdata = await fetcher(url, 'GET', [], {})
         
         let active = newdata.filter( (obj)=>{
             return obj.status

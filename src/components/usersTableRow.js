@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/tables.css';
 import { useState } from 'react';
+import fetcher from '../fetcher';
 
 const UsersTableRow = ({ data, index }) => {
     let [status,SetStatus] = useState(data.status)
@@ -17,15 +18,10 @@ const UsersTableRow = ({ data, index }) => {
 
         }
     
-      }
+    }
 
     const changeStatus =async (val) => {
-        const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'+String(data.id), {
-            method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({status: val})
-        })
-        const response = await res.json()
+        const response = await fetcher(new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'+String(data.id)),'PUT',[], {status: val})
         console.log(response)
         
         SetStatus(val)
