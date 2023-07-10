@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#createUserMainBody{
+    background-color: #fefae0;
+}
+#modalHeader{
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: #003566;
+    color: white;
+}
+#userFormBody{
+    display: flex;
+    flex-direction: column;
+}
+.form-switch{
+    display: flex;
+    justify-content: center;
+}
+.form-switch h7{
+    margin-left: 1rem;
+}
+#roleGroup{
+    align-content: center;
+    margin: 0;
+    margin-left: 3rem;
+}

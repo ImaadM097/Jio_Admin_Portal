@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Sidebar from "../../components/Sidebar";
+// import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -9,6 +9,9 @@ import Alert from '@mui/material/Alert';
 import '../../styles/tables.css'
 import UsersTableRow from "../../components/usersTableRow";
 import CreateUser from "../../components/createUser";
+import fetcher from "../../fetcher";
+
+
 const Users = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -27,14 +30,8 @@ const Users = () => {
 
     const getUsers = async () => {
         const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
-        url.searchParams.append('page', 1); 
-        url.searchParams.append('limit', 10);
-
-        const res = await fetch( url , {
-            method: 'GET',
-            headers: { 'content-type': 'application/json' }
-        })
-        const data = await res.json()
+        
+        const data = await fetcher(url, 'GET', [['page', 1], ['limit', 10]])
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -53,17 +50,13 @@ const Users = () => {
         const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-        if(searchTerm.length <= 2) {   await getUsers(); setSearch(false);    return }
+        if(searchTerm.length <= 2) {  setSearch(false);    return }
         
         for(let i=1; i<tableHeaders.length-1; i++) {
             const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
             let header = tableHeaders[i].toLowerCase()
             if(header === 'username') header = 'user_name'
-            url.searchParams.append(header, searchTerm)
-            url.searchParams.append('page', 1); 
-            url.searchParams.append('limit', 10);
-            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
-            const searchResult = await res.json()
+            const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1], ['limit', 10]])
             tempData = tempData.concat(searchResult)
         }
         
@@ -79,8 +72,8 @@ const Users = () => {
 
     return (
         <>
-            <div className='mainContainer' id="mainTable">
-                <Sidebar id="SidebarTable" />
+            {/* <div className='mainContainer' id="mainTable">
+                <Sidebar id="SidebarTable" /> */}
                 <div className='RightSide'>
                     {/* <Navbar id="NavbarTable" /> */}
                     <div className="tablediv">
@@ -134,7 +127,7 @@ const Users = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }

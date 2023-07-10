@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Sidebar from "../../components/Sidebar";
+// import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import TenantsTableRow from "../../components/TenantsTableRow";
 import '../../styles/tables.css'
@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 import CreateTenant from "../../components/CreateTenant";
+import fetcher from "../../fetcher";
 const Tenants = () => {
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -28,15 +29,7 @@ const Tenants = () => {
     const getTenants = async () => {
         const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants')
         
-
-        url.searchParams.append('page', 1); 
-        url.searchParams.append('limit', 10);
-
-        const res = await fetch(url, {
-            method: 'GET',
-            headers: { 'content-type': 'application/json' }
-        })
-        const data = await res.json()
+        const data = await fetcher(url, 'GET', [['page', 1], ['limit', 10]])
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -47,7 +40,7 @@ const Tenants = () => {
         }
     }
 
-    const tableHeaders = ['Name', 'Domain', 'Features', 'Active']
+    const tableHeaders = ['Id', 'Name', 'Domain', 'Features', 'Active']
 
     async function handleSearch(e) {
         let tempData = []
@@ -59,14 +52,15 @@ const Tenants = () => {
         if(searchTerm.length <= 2) return
 
         setSearch(true)
-        for(let i=0; i<=1; i++) {
+        for(let i=1; i<=2; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
             let header = tableHeaders[i].toLowerCase()
-            url.searchParams.append(header, searchTerm)
-            url.searchParams.append('page', 1); 
-            url.searchParams.append('limit', 10);
-            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
-            const searchResult = await res.json()
+            const searchResult = await fetcher(
+                url,
+                'GET',
+                [[header, searchTerm], ['page', 1],['limit', 10]]
+            )
+            
             tempData = tempData.concat(searchResult)
         }
 
@@ -80,13 +74,10 @@ const Tenants = () => {
         setSearch(false)
         
     }
-
-
-
     return (
         <>
-            <div className='mainContainer' id="mainTable">
-                <Sidebar id="SidebarTable" />
+            {/* <div className='mainContainer' id="mainTable">
+                <Sidebar id="SidebarTable" /> */}
                 <div className='RightSide'>
                     {/* <Navbar id="NavbarTable" /> */}
                     <div className="tablediv">
@@ -140,7 +131,7 @@ const Tenants = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }

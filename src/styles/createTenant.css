@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#mainTenantBody{
+    background-color: #fefae0;
+}
+#modalHeader{
+    display: flex;
+    flex-direction: column-reverse;
+}
+#tenantFormBody{
+    display: flex;
+    flex-direction: row;
+}
+#boxBody{
+    flex-grow: 2;
+}
+#featureButtons{
+    margin: 0;
+}

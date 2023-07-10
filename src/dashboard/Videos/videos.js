@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Sidebar from "../../components/Sidebar";
+// import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import TableRow from "../../components/VideosTableRow";
 import '../../styles/tables.css'
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
+import fetcher from "../../fetcher";
 
 const Videos = () => {
     const [data, setData] = useState([]);
@@ -28,13 +29,8 @@ const Videos = () => {
     async function getVideos() {
 
         const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
-        url.searchParams.append('page', 1); 
-        url.searchParams.append('limit', 10);
-        const res = await fetch(url, {
-            method: 'GET',
-            headers: {'content-type':'application/json'}
-        })
-        const data = await res.json()
+        
+        const data = await fetcher(url, 'GET', [['page', 1], ['limit', 10]])
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -53,24 +49,22 @@ const Videos = () => {
         const searchTerm = e.target.value
         setSearch(true)
         let tempData = []
-        if(searchTerm.length <= 2) {  await getVideos(); setSearch(false);    return }
+        if(searchTerm.length <= 2) { setSearch(false);    return }
         
-        for(let i=0; i<tableHeaders.length-3; i++) {
+        for(let i=1; i<tableHeaders.length-3; i++) {
             const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
             const header = tableHeaders[i].toLowerCase()
-            // console.log(header)
-            url.searchParams.append(header, searchTerm)
-            url.searchParams.append('page', 1); 
-            url.searchParams.append('limit', 10);
-            const res = await fetch(url, {method: 'GET', headers: {'content-type': 'application/json'}})
-            const searchResult = await res.json()
+            
+            const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1],['limit', 10]])
             // console.log(searchResult)
             tempData = tempData.concat(searchResult)
         }
-        if(tempData.length <= 10) setData(tempData)
+        if(tempData.length === 0) setAlert(true)
+        if(tempData.length <= 10) {setData(tempData); setAlert(false)}
         else {
             const newTempData = tempData.slice(0, 10)
             setData(newTempData)
+            setAlert(false)
         }
         setSearch(false)
     }
@@ -79,8 +73,8 @@ const Videos = () => {
     
     return (
         <>
-            <div className='mainContainer' id="mainTable">
-                <Sidebar id="SidebarTable"/>
+            {/* <div className='mainContainer'>
+                <Sidebar/> */}
                 <div className='RightSide'>
                     {/* <Navbar id="NavbarTable"/> */}
                     <div className="tablediv">
@@ -132,7 +126,7 @@ const Videos = () => {
                             </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }

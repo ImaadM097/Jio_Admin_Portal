@@ -1,4 +1,4 @@
-import Sidebar from '../../components/Sidebar';
+// import Sidebar from '../../components/Sidebar';
 // import Navbar from '../../components/navbar';
 import Chart1 from '../../components/Chart1';
 import Chart2 from '../../components/Chart2'
@@ -16,27 +16,27 @@ const Dashboard = () => {
     }, [navigate,usr1]);
         return (
             <>
-                <div className='mainContainer'>
-                    <Sidebar id="SidebarTable" />
+                {/* <div className='mainContainer'> */}
+                    {/* <Sidebar /> */}
                     <div className='RightSide'>
                         {/* <Navbar id="NavbarTable" /> */}
                         <div className="container">
-                            <div className='row'>
-                                <div className="col">
+                            <div className='row' id="chartRow">
+                                <div className="col" id = "chartCol">
                                     <Chart2 />
                                 </div>
-                                <div className="col">
+                                <div className="col" id="chartCol">
                                     <Chart3 />
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className="col" id='barChart'>
+                            <div className='row' id="chartRow">
+                                <div className="col" id="chartCol2">
                                     <Chart1 />
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
             </>
         );
     }
