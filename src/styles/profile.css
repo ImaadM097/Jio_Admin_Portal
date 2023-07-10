@@ -7,7 +7,7 @@
     margin-top: 5rem;
     flex-grow: 2;
     overflow: auto;
-    color: #003566;
+    color: var(--color-primary);
 }
 .profileContent h2{
     margin-top: 1rem;
