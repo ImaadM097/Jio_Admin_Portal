@@ -98,7 +98,7 @@ const Tenants = () => {
                             <CreateTenant/>
                         </div>
                         <div className='container' id='tableContainer'>
-                            <table className='table'>
+                            <table className='table table-striped'>
                                 <thead>
                                     <tr>
                                         {

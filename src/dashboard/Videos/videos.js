@@ -93,7 +93,7 @@ const Videos = () => {
                             <h4>Videos</h4>
                         </div>
                             <div className='container' id='tableContainer'>
-                                <table className='table' id='dataTables'>
+                                <table className='table table-striped' id='dataTables'>
                                     <thead>
                                         <tr>
                                             {

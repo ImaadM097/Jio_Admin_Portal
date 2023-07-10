@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-
+import '../styles/tenantTableRow.css'
 import fetcher from '../fetcher';
 //{ features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}
 
@@ -89,7 +89,7 @@ const TenantsTableRow =  ({ data, index }) => {
                     </div>
                 </td>
                 <td>
-                <div class="form-check form-switch">
+                <div class="form-check form-switch" id='activeSwitchContainer'>
                     <input class="form-check-input" type="checkbox" role="switch" id="active" checked = {active} onChange={handleChange}/>
                 </div>
                 </td>

@@ -75,7 +75,7 @@ tr {
     display: flex;
 }
 #playVideoBtn {
-    background-color: white;
+    background-color: transparent;
 }
 #barChart{
     margin-bottom: 2rem;
