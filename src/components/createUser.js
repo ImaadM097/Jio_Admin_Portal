@@ -10,26 +10,30 @@ import fetcher from "../fetcher";
 import '../styles/createUser.css'
 
 const CreateUser = ()=>{
+    const [formName, setFormName] = useState("");
+    const [formTenant, setFormTenant] = useState("");
     const [role,Setrole] = useState("");
-    const [formData,setFormData] = useState({
-        user_name:"",
-        tenant:"",
-        status:true,
+    // const [formData,setFormData] = useState({
+    //     user_name:"",
+    //     tenant:"",
+    //     status:true,
         
-    });
+    // });
     const [success,setsuccess] = useState(false);
 
     const handleChange = (e)=>{
-        const changedField = e.target.name;
-        const newVal = e.target.value;
-        setFormData(currData=>{
-            return {...currData,
-            [changedField]:newVal,
-            };
-        });
+        // const changedField = e.target.name;
+        // const newVal = e.target.value;
+        // setFormData(currData=>{
+        //     return {...currData,
+        //     [changedField]:newVal,
+        //     };
+        // });
+        if(e.target.id === 'filled-requiredName') setFormName(e.target.value)
+        else setFormTenant(e.target.value)
     }
-    const handleroleChange=(e)=>{
-        if(e.target.id ==="flexRadioDefault1"){
+    const handleRoleChange=(e)=>{
+        if(e.target.value ==="admin"){
             Setrole("admin")
         }
         else{
@@ -42,20 +46,23 @@ const CreateUser = ()=>{
     const handleClick =  async (e)=>{
         e.preventDefault();
 
-        
-        
-        let newdata = {...formData,role:role}
-        console.log(newdata);
+        const newData = {
+            user_name: formName,
+            tenant: formTenant,
+            status: true,
+            role: role
+        }
 
-        // const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/', {
-        //     method: 'POST',
-        //     headers: { 'content-type': 'application/json' },
-        //     body: JSON.stringify(newdata)
-        // })
-        // const response = await res.json()
-        const response = await fetcher(new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'), 'POST', [], newdata)
+        // // const res = await fetch('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/', {
+        // //     method: 'POST',
+        // //     headers: { 'content-type': 'application/json' },
+        // //     body: JSON.stringify(newdata)
+        // // })
+        // // const response = await res.json()
+        const response = await fetcher(new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'), 'POST', [], newData)
         console.log(response)
-        setsuccess(true)
+        // setsuccess(true)
+        setFormName(""); setFormTenant("");
     }
 
     return(
@@ -116,29 +123,30 @@ const CreateUser = ()=>{
                                         >
                                             <TextField
                                             required
-                                            id="filled-required"
+                                            id="filled-requiredName"
                                             label="Name"
                                             defaultValue=""
                                             variant="filled"
-                                            //onChange={handleChange}
-                                            //value={formData.name}
+                                            onChange={handleChange}
+                                            value={formName}
                                             />
                                             <TextField
                                             required
-                                            id="filled-required"
-                                            label="Domain"
+                                            id="filled-requiredTenant"
+                                            label="Tenant"
                                             defaultValue=""
                                             variant="filled"
-                                            //onChange={handleChange}
-                                            //value={formData.domain}
+                                            onChange={handleChange}
+                                            value={formTenant}
                                             />
                                             <RadioGroup
                                                 aria-labelledby="demo-radio-buttons-group-label"
                                                 defaultValue="moderator"
                                                 name="radio-buttons-group"
+                                                onChange={handleRoleChange}
                                             >
-                                                <FormControlLabel id ="roleGroup" value="admin" control={<Radio />} label="admin" />
-                                                <FormControlLabel id ="roleGroup" value="moderator" control={<Radio />} label="moderator" />
+                                                <FormControlLabel id ="roleGroup" value="admin" control={<Radio id="admin"/>} label="admin" />
+                                                <FormControlLabel id ="roleGroup" value="moderator" control={<Radio id="mod"/>} label="moderator" />
                                             </RadioGroup>
                                     </Box>
                                     </div>
