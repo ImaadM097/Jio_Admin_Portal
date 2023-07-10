@@ -38,14 +38,14 @@ function App() {
             </div>
           </>
         } />
-        <Route path="/dashboard/profile" element={
+        {/* <Route path="/dashboard/profile" element={
           <>
           <div className='mainProfileDiv'>
               <Sidebar/>
               <Profile/>
           </div>
         </>
-        }/>
+        }/> */}
         <Route path='/dashboard/videos' element={
           <>
           <div className='mainContainer'>

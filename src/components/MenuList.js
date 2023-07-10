@@ -36,12 +36,12 @@ export const menuList = (
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton href='/dashboard/profile'>
+      {/* <ListItemButton href='/dashboard/profile'>
         <ListItemIcon>
           <AccountBoxIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton href='/dashboard/comments'>
         <ListItemIcon>
           <CommentIcon />
