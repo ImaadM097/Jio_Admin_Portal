@@ -9,26 +9,32 @@ import FormGroup from '@mui/material/FormGroup';
 import '../styles/createTenant.css'
 import fetcher from "../fetcher";
 const CreateTenant = ()=>{
-    const [formData,setFormData] = useState({
-        name:"",
-        active:true,
-        domain:"",
+    // const [formData,setFormData] = useState({
+    //     name:"",
+    //     active:true,
+    //     domain:"",
         
-    });
+    // });
+    const [formName, setFormName] = useState("");
+    const [formDomain, setFormDomain] = useState("");
+    // const [active, setActive] = useState(false)
     const [volumeControlEnabled, setVolumeControlEnabled] = useState(false);
     const [productDrawerEnabled, setProductDrawerEnabled] = useState(false);
     const [reportEnabled, setReportEnabled] = useState(false);
     const [likeEnabled, setLikeEnabled] = useState(false);
     const [success,setsuccess] = useState(false);
     const handleChange = (e)=>{
-        const changedField = e.target.name;
-        const newVal = e.target.value;
+        // const changedField = e.target.name;
+        // const newVal = e.target.value;
         
-        setFormData(currData=>{
-            return {...currData,
-            [changedField]:newVal,
-            };
-        });
+        // setFormData(currData=>{
+        //     return {...currData,
+        //     [changedField]:newVal,
+        //     };
+        // });
+        if(e.target.id === 'filled-requiredName') setFormName(e.target.value)
+        else setFormDomain(e.target.value)
+
     }
     const handleFeatureChange = (e)=>{
         const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled];
@@ -36,7 +42,7 @@ const CreateTenant = ()=>{
         if(e.target.id === 'volumeControlEnabled') temp[0] = !temp[0]
         else if(e.target.id === 'productDrawerEnabled') temp[1] = !temp[1];
         else if(e.target.id ==='reportEnabled') temp[2] = !temp[2]
-        else temp[3] = !temp[3]
+        else if(e.target.id === 'likeEnabled') temp[3] = !temp[3]
         setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1]); setReportEnabled(temp[2]); setLikeEnabled(temp[3]);
     }
 
@@ -45,23 +51,28 @@ const CreateTenant = ()=>{
         e.preventDefault();
         
         const newdata = {
-            ...formData,features:{volumeControlEnabled:volumeControlEnabled, productDrawerEnabled:productDrawerEnabled, reportEnabled:reportEnabled, likeEnabled:likeEnabled}
+            name : formName,
+            domain: formDomain,
+            active: true,
+            features: {
+                volumeControlEnabled: volumeControlEnabled,
+                productDrawerEnabled: productDrawerEnabled,
+                reportEnabled: reportEnabled,
+                likeEnabled: likeEnabled
+            }
+
         }
-        console.log(JSON.stringify(newdata))
-        // const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/', {
-        //     method: 'POST',
-        //     headers: { 'content-type': 'application/json' },
-        //     body: JSON.stringify(newdata)
-        // })
-        // const response = await res.json()
+        // console.log(JSON.stringify(newdata))
+        // // const res = await fetch('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/', {
+        // //     method: 'POST',
+        // //     headers: { 'content-type': 'application/json' },
+        // //     body: JSON.stringify(newdata)
+        // // })
+        // // const response = await res.json()
         const response = await fetcher(new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/'), 'POST', [], newdata)
         console.log(response)
-        setsuccess(true)
-        setFormData({
-            name:"",
-            active:true,
-            domain:"",
-        })
+        // setsuccess(true)
+        setFormDomain(""); setFormName("");
         setVolumeControlEnabled(false); setProductDrawerEnabled(false); setReportEnabled(false); setLikeEnabled(false);
     }
 
@@ -91,21 +102,21 @@ const CreateTenant = ()=>{
                                         >
                                             <TextField
                                             required
-                                            id="filled-required"
+                                            id="filled-requiredName"
                                             label="Name"
                                             defaultValue=""
                                             variant="filled"
-                                            //onChange={handleChange}
-                                            //value={formData.name}
+                                            onChange={handleChange}
+                                            value={formName}
                                             />
                                             <TextField
                                             required
-                                            id="filled-required"
+                                            id="filled-requiredDomain"
                                             label="Domain"
                                             defaultValue=""
                                             variant="filled"
-                                            //onChange={handleChange}
-                                            //value={formData.domain}
+                                            onChange={handleChange}
+                                            value={formDomain}
                                             />
                                             <FormGroup>
                                             <h4>Features:</h4>
