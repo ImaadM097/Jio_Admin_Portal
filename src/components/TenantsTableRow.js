@@ -1,7 +1,10 @@
 import React from 'react';
 import '../styles/tables.css';
 import { useState, useEffect } from 'react';
-import { act } from 'react-dom/test-utils';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+
 import fetcher from '../fetcher';
 //{ features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}
 
@@ -68,28 +71,18 @@ const TenantsTableRow =  ({ data, index }) => {
                     <div className='modal fade' id={`modal${data.id}`}>
                         <div className='modal-dialog modal-dialog-centered'>
                             <div className='modal-content'>
-                                <div className='modal-header'>
+                                <div className='modal-header' id="modalHeader">
                                     <h2>Enable/Disable Features</h2>
-                                    <button className='btn-close' data-bs-dismiss="modal" data-bs-target={`#modal${data.id}`}></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${data.id}`}></button>
                                 </div>
                                 <div className='modal-body' id='features'>
-                                    {/* <h4>{data.id}</h4> */}
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleChange}/>
-                                    <h7>Volume Control</h7>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="productDrawerEnabled" checked = {productDrawerEnabled} onChange={handleChange}/>
-                                    <h7>Product Drawer</h7>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="reportEnabled" checked = {reportEnabled} onChange={handleChange}/>
-                                    <h7>Report Enabled</h7>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="likeEnabled" checked = {likeEnabled} onChange={handleChange}/>
-                                    <h7>Like Enabled</h7>
-                                </div>
+
+                                <FormGroup>
+                                            <FormControlLabel id="featureButtons" control={<Switch id="volumeControlEnabled" checked = {volumeControlEnabled} onChange={handleChange} />} label="Volume Drawer" />
+                                            <FormControlLabel id="featureButtons" control={<Switch id="productDrawerEnabled" checked = {productDrawerEnabled} onChange={handleChange}/>} label="Product Drawer" />
+                                            <FormControlLabel id="featureButtons" control={<Switch id="reportEnabled" checked = {reportEnabled} onChange={handleChange}/>} label="Report Enabled" />
+                                            <FormControlLabel id="featureButtons" control={<Switch id="likeEnabled" checked = {likeEnabled} onChange={handleChange}/>} label="Like Enabled" />
+                                            </FormGroup>
                                 </div>
                             </div>
                         </div>
