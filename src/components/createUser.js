@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import fetcher from "../fetcher";
+
 import '../styles/createUser.css'
 
 const CreateUser = ()=>{
-    const navigate = useNavigate();
     const [role,Setrole] = useState("");
     const [formData,setFormData] = useState({
         user_name:"",

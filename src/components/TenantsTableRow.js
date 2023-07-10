@@ -37,6 +37,7 @@ const TenantsTableRow =  ({ data, index }) => {
                 [],
                 {features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}}
             )
+
             console.log(response)
             setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1]); setReportEnabled(temp[2]); setLikeEnabled(temp[3]);
         }

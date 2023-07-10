@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Sidebar from "../../components/Sidebar";
+// import Sidebar from "../../components/Sidebar";
 // import Navbar from "../../components/navbar";
 import TableRow from "../../components/VideosTableRow";
 import '../../styles/tables.css'
@@ -73,8 +73,8 @@ const Videos = () => {
     
     return (
         <>
-            <div className='mainContainer' id="mainTable">
-                <Sidebar id="SidebarTable"/>
+            {/* <div className='mainContainer'>
+                <Sidebar/> */}
                 <div className='RightSide'>
                     {/* <Navbar id="NavbarTable"/> */}
                     <div className="tablediv">
@@ -126,7 +126,7 @@ const Videos = () => {
                             </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
         </>
     )
 }

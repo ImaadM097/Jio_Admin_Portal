@@ -1,4 +1,4 @@
-import Sidebar from '../../components/Sidebar';
+// import Sidebar from '../../components/Sidebar';
 // import Navbar from '../../components/navbar';
 import '../../styles/tables.css'
 import response from '../../sample_response/sample_response.json'
@@ -20,8 +20,8 @@ const Tables = () => {
     const newVideos = videos.slice(0, count-1);
     return (
         <>
-            <div className='mainContainer' id="mainTable">
-                <Sidebar id="SidebarTable"/>
+            {/* <div className='mainContainer'> */}
+                {/* <Sidebar/> */}
                 <div className='RightSide'>
                     {/* <Navbar id="NavbarTable"/> */}
                     <div className="tablediv">
@@ -61,7 +61,7 @@ const Tables = () => {
                             </div>
                     </div>
                 </div>
-            </div>
+            {/* </div> */}
             
         </>
     )
