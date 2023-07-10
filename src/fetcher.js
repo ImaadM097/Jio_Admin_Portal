@@ -2,6 +2,8 @@
 
 async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) {
 
+    
+
     if(searchParamsList.length !== 0) {
         searchParamsList.map((param)=>{
             return url.searchParams.append(param[0], param[1])
@@ -14,6 +16,7 @@ async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) 
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(bodyContent)
         })
+        
         const result = await res.json()
         return result
     }
@@ -22,6 +25,7 @@ async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) 
             method: reqMethod,
             headers: {'content-type': 'application/json'}
         })
+        // console.log(res)
         const result = await res.json()
         return result
     }
