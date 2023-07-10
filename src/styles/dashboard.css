@@ -12,7 +12,7 @@
     margin-top: 5%;
 }
 
-.row {
+#chartRow{
     margin-top: 1rem;
     margin-bottom: 1rem;
     display: flex;
@@ -20,7 +20,7 @@
     margin-right: 1rem;
     margin-left: 1rem;
 }
-.col{
+#chartCol{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -29,7 +29,14 @@
     border-radius: 2rem;
     background-color: var(--color-tertiary);
 }
-#barChart{
-    padding: 4rem;
+#chartCol2{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 2rem;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    border-radius: 2rem;
+    background-color: #fefae0;
     margin-bottom: 6rem;
+    padding:2rem;
 }

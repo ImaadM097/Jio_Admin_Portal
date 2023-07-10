@@ -21,16 +21,16 @@ const Dashboard = () => {
                     <div className='RightSide'>
                         {/* <Navbar id="NavbarTable" /> */}
                         <div className="container">
-                            <div className='row'>
-                                <div className="col">
+                            <div className='row' id="chartRow">
+                                <div className="col" id = "chartCol">
                                     <Chart2 />
                                 </div>
-                                <div className="col">
+                                <div className="col" id="chartCol">
                                     <Chart3 />
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className="col" id='barChart'>
+                            <div className='row' id="chartRow">
+                                <div className="col" id="chartCol2">
                                     <Chart1 />
                                 </div>
                             </div>
