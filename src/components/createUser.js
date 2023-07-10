@@ -142,7 +142,7 @@ const CreateUser = ()=>{
                                             onChange={handleChange}
                                             value={formTenant}
                                             /> */}
-                                            <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+                                            <FormControl variant="filled" sx={{ m: 1, minWidth: 120,width:'20ch' }}>
                                                     <InputLabel id="demo-simple-select-label">Tenant</InputLabel>
                                                     <Select
                                                     required
