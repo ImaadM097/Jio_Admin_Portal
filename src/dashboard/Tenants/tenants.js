@@ -74,9 +74,6 @@ const Tenants = () => {
         setSearch(false)
         
     }
-
-
-
     return (
         <>
             {/* <div className='mainContainer' id="mainTable">
