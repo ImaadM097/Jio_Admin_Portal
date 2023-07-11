@@ -10,9 +10,17 @@ import '../../styles/tables.css'
 import UsersTableRow from "../../components/usersTableRow";
 import CreateUser from "../../components/createUser";
 import fetcher from "../../fetcher";
+import Pagination from "../../components/Pagination";
 
 
 const Users = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [totalCount, setTotalCount] = useState(0);
+    const [currentURL, setCurrentURL] = useState('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+
+
+
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
     console.log(searchValue);
@@ -29,9 +37,14 @@ const Users = () => {
     }, [navigate,token]);
 
     const getUsers = async () => {
-        const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
         
-        const data = await fetcher(url, 'GET', [['page', 1], ['limit', 10]])
+        setCurrentURL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+
+        const Alldata = await fetcher(new URL(currentURL), 'GET', [])
+        setTotalCount(Alldata.length)
+        setCurrentPage(1)
+        
+        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]])
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -49,16 +62,22 @@ const Users = () => {
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
         setSearch(true)
-        let tempData = []
+        // let tempData = []
         if(searchTerm.length <= 2) {  setSearch(false);    return }
         
-        for(let i=1; i<tableHeaders.length-1; i++) {
-            const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
-            let header = tableHeaders[i].toLowerCase()
-            if(header === 'username') header = 'user_name'
-            const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1], ['limit', 10]])
-            tempData = tempData.concat(searchResult)
-        }
+        // for(let i=1; i<tableHeaders.length-1; i++) {
+        //     const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+        //     let header = tableHeaders[i].toLowerCase()
+        //     if(header === 'username') header = 'user_name'
+        //     const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1], ['limit', 10]])
+        //     tempData = tempData.concat(searchResult)
+        // }
+        setCurrentPage(1)
+        const url = `https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}`
+        const AllTempData = await fetcher(new URL(url), 'GET', [])
+        setCurrentURL(url)
+        setTotalCount(AllTempData.length)
+        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]])  
         
         if(tempData.length <= 10) setData(tempData)
         else {
@@ -68,7 +87,23 @@ const Users = () => {
         setSearch(false)
     }
 
+    async function handlePagination(type) {
+        console.log(currentURL)
 
+        if(type == 'next') {
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
+            if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
+            setData(data)
+        }
+        else {
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]])
+            if(currentPage > 1)setCurrentPage(currentPage-1)
+            setData(data)
+        }
+        // console.log(data)
+        
+        
+    } 
 
     return (
         <>
@@ -79,7 +114,7 @@ const Users = () => {
                     <div className="tablediv">
                         
                             <div className='input-group' id="searchBar">
-                                <input type='text' className='form-control form-control-md' placeholder='Search by username, tenant, role...' 
+                                <input type='text' className='form-control form-control-md' placeholder='Search by username...' 
                                 onChange={handleSearch} />
                                 {/* <button className='btn btn-primary' onClick={()=>{handleSearch(searchValue)}}>GO</button> */}
                             </div>
@@ -124,6 +159,7 @@ const Users = () => {
                                     }
                                 </tbody>
                             </table>
+                            <Pagination totalCount={totalCount} rowsPerPage={rowsPerPage} currentPage={currentPage} pagination = {handlePagination}/>
                         </div>
                     </div>
                 </div>

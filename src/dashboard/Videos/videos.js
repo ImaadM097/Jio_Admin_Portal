@@ -9,8 +9,15 @@ import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import Alert from '@mui/material/Alert';
 import fetcher from "../../fetcher";
+import Pagination from "../../components/Pagination";
 
 const Videos = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [totalCount, setTotalCount] = useState(0);
+    const [currentURL, setCurrentURL] = useState('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+
+
     const [data, setData] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [search, setSearch] = useState(false);
@@ -28,9 +35,13 @@ const Videos = () => {
 
     async function getVideos() {
 
-        const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+        setCurrentURL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+
+        const Alldata = await fetcher(new URL(currentURL), 'GET', [])
+        setTotalCount(Alldata.length)
+        setCurrentPage(1)
         
-        const data = await fetcher(url, 'GET', [['page', 1], ['limit', 10]])
+        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]])
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -48,17 +59,25 @@ const Videos = () => {
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
         setSearch(true)
-        let tempData = []
+        // let tempData = []
         if(searchTerm.length <= 2) { setSearch(false);    return }
         
-        for(let i=1; i<tableHeaders.length-3; i++) {
-            const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
-            const header = tableHeaders[i].toLowerCase()
+        // for(let i=1; i<tableHeaders.length-3; i++) {
+        //     const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+        //     const header = tableHeaders[i].toLowerCase()
             
-            const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1],['limit', 10]])
-            // console.log(searchResult)
-            tempData = tempData.concat(searchResult)
-        }
+        //     const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1],['limit', 10]])
+        //     // console.log(searchResult)
+        //     tempData = tempData.concat(searchResult)
+        // }
+
+        setCurrentPage(1)
+        const queryURL = `https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos?name=${searchTerm}`
+        const AllTempData = await fetcher(new URL(queryURL), 'GET', [])
+        setCurrentURL(queryURL)
+        setTotalCount(AllTempData.length)
+        const tempData = await fetcher(new URL(queryURL), 'GET', [['page',currentPage], ['limit', rowsPerPage]])  
+
         if(tempData.length === 0) setAlert(true)
         if(tempData.length <= 10) {setData(tempData); setAlert(false)}
         else {
@@ -69,7 +88,23 @@ const Videos = () => {
         setSearch(false)
     }
     
+    async function handlePagination(type) {
+        console.log(currentURL)
 
+        if(type == 'next') {
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
+            if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
+            setData(data)
+        }
+        else {
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]])
+            if(currentPage > 1)setCurrentPage(currentPage-1)
+            setData(data)
+        }
+        // console.log(data)
+        
+        
+    } 
     
     return (
         <>
@@ -123,6 +158,7 @@ const Videos = () => {
                                     }
                                     </tbody>
                                 </table>
+                                <Pagination totalCount={totalCount} rowsPerPage={rowsPerPage} currentPage={currentPage} pagination = {handlePagination}/>
                             </div>
                     </div>
                 </div>

@@ -32,4 +32,9 @@
 }
 #featureButtons{
     margin: 0;
+    margin-left: 3rem;
+}
+#featureHeading{
+    margin-right: 18rem;
+    margin-top: 0.5rem;
 }
