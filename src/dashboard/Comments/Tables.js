@@ -7,11 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Pagination from '../../components/Pagination';
 
-
 const Tables = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
-    const [totalCount, setTotalCount] = useState(response.data.videos.length);     //For actual api call replace with response.data.total
+    const totalCount = response.data.videos.length;     //For actual api call replace with response.data.total
     const [data, setData] = useState([])
 
     const navigate = useNavigate();
@@ -22,7 +21,7 @@ const Tables = () => {
             navigate('/login');
         }
         setData(allComments.slice(0,10))
-    }, [navigate,token]);
+    }, [navigate,token,allComments]);
     
     console.log(allComments)
     
