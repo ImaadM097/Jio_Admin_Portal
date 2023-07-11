@@ -4,22 +4,39 @@ import '../../styles/tables.css'
 import response from '../../sample_response/sample_response.json'
 import TableRow from '../../components/TableData';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-
+import { useEffect, useState } from 'react';
+import Pagination from '../../components/Pagination';
 
 
 const Tables = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const rowsPerPage = 10;
+    const [totalCount, setTotalCount] = useState(response.data.videos.length);     //For actual api call replace with response.data.total
+    const [data, setData] = useState([])
+
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const allComments = response.data.videos;
     useEffect(() => {
         if(!token){
             navigate('/login');
         }
+        setData(allComments.slice(0,10))
     }, [navigate,token]);
-    const videos = response.data.videos;
-    const totalCount = response.data.total;
-    const count = (totalCount > 10) ? 10 : totalCount;
-    const newVideos = videos.slice(0, count-1);
+    
+    console.log(allComments)
+    
+    async function handlePagination(type) {
+        if(type === 'next' && currentPage < Math.ceil(totalCount/rowsPerPage)) setCurrentPage(currentPage+1); 
+        else if(currentPage > 1) setCurrentPage(currentPage-1);
+
+        const indexOfLastRow = currentPage*rowsPerPage;
+        const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+        const newData = allComments.slice(indexOfFirstRow, indexOfLastRow)
+        setData(newData)
+        
+    }
+
     return (
         <>
             {/* <div className='mainContainer'> */}
@@ -51,7 +68,7 @@ const Tables = () => {
                                     {(response == null)? (
                                         <h5>No data</h5>
                                     ):(
-                                        newVideos.map((item, index)=>{
+                                        data.map((item, index)=>{
                                             return (
                                                 <TableRow data={item} index={index}/>
                                             )
@@ -60,6 +77,7 @@ const Tables = () => {
                                     }
                                     </tbody>
                                 </table>
+                                <Pagination totalCount={totalCount} rowsPerPage={rowsPerPage} currentPage={currentPage} pagination = {handlePagination}/>
                             </div>
                     </div>
                 </div>

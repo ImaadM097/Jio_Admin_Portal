@@ -8,7 +8,7 @@ async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) 
         searchParamsList.map((param)=>{
             return url.searchParams.append(param[0], param[1])
         })
-        console.log(url)
+        // console.log(url)
     }
     if(reqMethod !== 'GET') {
         const res = await fetch(url, {
