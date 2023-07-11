@@ -1,4 +1,5 @@
 import React from "react";
+import { useCallback } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import Sidebar from "../../components/Sidebar";
@@ -13,7 +14,7 @@ import Pagination from "../../components/Pagination";
 
 const Videos = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const rowsPerPage = 10;
     const [totalCount, setTotalCount] = useState(0);
     const [currentURL, setCurrentURL] = useState('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
 
@@ -25,15 +26,9 @@ const Videos = () => {
     const [loader,setLoader] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    useEffect(() => {
-        if(!token){
-            navigate('/login');
-        }
-        getVideos()
-        
-    }, [navigate,token]);
+    
 
-    async function getVideos() {
+    const getVideos = useCallback(async ()=> {
 
         setCurrentURL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
 
@@ -50,8 +45,15 @@ const Videos = () => {
             setData(data);
             setLoader(false);
         }
-    }
+    },[currentURL])
 
+    useEffect(() => {
+        if(!token){
+            navigate('/login');
+        }
+        getVideos()
+        
+    }, [navigate,token,getVideos]);
     const tableHeaders = ['Id' ,'Name', 'Tenant', 'Status', 'Duration', 'Video']
     
     async function handleSearch(e) {
@@ -91,7 +93,7 @@ const Videos = () => {
     async function handlePagination(type) {
         console.log(currentURL)
 
-        if(type == 'next') {
+        if(type === 'next') {
             const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)

@@ -1,4 +1,5 @@
 import React from "react";
+import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import Sidebar from "../../components/Sidebar";
@@ -15,7 +16,7 @@ import Pagination from "../../components/Pagination";
 
 const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const rowsPerPage = 10;
     const [totalCount, setTotalCount] = useState(0);
     const [currentURL, setCurrentURL] = useState('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
 
@@ -29,14 +30,9 @@ const Users = () => {
     const [loader,setLoader] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    useEffect(() => {
-        if (!token) {
-            navigate('/login');
-        }
-        getUsers()
-    }, [navigate,token]);
+    
 
-    const getUsers = async () => {
+    const getUsers = useCallback(async () => {
         
         setCurrentURL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
 
@@ -53,8 +49,13 @@ const Users = () => {
             setData(data);
             setLoader(false);
         }
-    }
-
+    },[currentURL])
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+        else getUsers();
+    }, [navigate,token,getUsers]);
     const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
 
     async function handleSearch(e) {
@@ -90,7 +91,7 @@ const Users = () => {
     async function handlePagination(type) {
         console.log(currentURL)
 
-        if(type == 'next') {
+        if(type === 'next') {
             const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)
