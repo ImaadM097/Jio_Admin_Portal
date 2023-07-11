@@ -13,7 +13,8 @@ import fetcher from "../../fetcher";
 import Pagination from "../../components/Pagination";
 const Tenants = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const rowsPerPage = 10;
+    
     const [totalCount, setTotalCount] = useState(0);
     const [currentURL, setCurrentURL] = useState('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants')
 
@@ -98,7 +99,7 @@ const Tenants = () => {
     async function handlePagination(type) {
         console.log(currentURL)
 
-        if(type == 'next') {
+        if(type === 'next') {
             const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)

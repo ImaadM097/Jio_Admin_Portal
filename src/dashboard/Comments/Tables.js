@@ -6,6 +6,8 @@ import TableRow from '../../components/TableData';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+
+
 const Tables = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
