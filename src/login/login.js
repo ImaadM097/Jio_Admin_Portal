@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import './login.css'
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
 function Login() {
     const navigate = useNavigate();
+    const usr1 = localStorage.getItem('token');
+    
+    useEffect(() => {
+        if(usr1){
+            navigate('/dashboard');
+        }
+    }, [navigate,usr1]);
     const [validPass,setValidPass] = useState(true);
     const [formData,setFormData] = useState({
         username:"",
