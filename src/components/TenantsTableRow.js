@@ -13,6 +13,7 @@ const TenantsTableRow =  ({ data, index }) => {
     const [reportEnabled, setReportEnabled] = useState(data.features.reportEnabled);
     const [likeEnabled, setLikeEnabled] = useState(data.features.likeEnabled);
     const [active, setActive] = useState(data.active);
+    const token = localStorage.getItem('token');
 
     useEffect ( ()=>{
         setVolumeControlEnabled(data.features.volumeControlEnabled);
@@ -33,9 +34,10 @@ const TenantsTableRow =  ({ data, index }) => {
         
         if(e.target.id !== 'activeTenant') {
             
-            const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
+            const response = await fetcher(`http://192.168.56.1:3001/tenants/update/${data._id}`,
                 'PUT',
                 [],
+                token,
                 {features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}}
             )
 
@@ -43,9 +45,10 @@ const TenantsTableRow =  ({ data, index }) => {
             setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1]); setReportEnabled(temp[2]); setLikeEnabled(temp[3]);
         }
         else {
-            const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
+            const response = await fetcher(`http://192.168.56.1:3001/tenants/update/${data._id}`,
                 'PUT',
                 [],
+                token,
                 {active : temp[4]}
             )
             // console.log(response)

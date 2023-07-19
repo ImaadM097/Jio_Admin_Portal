@@ -1,7 +1,7 @@
+// import 'dotenv/config'
 import React, { useState } from "react";
 import './login.css'
 import { useNavigate } from "react-router-dom";
-
 import logo from '../src_images/JioLiv@2x.png';
 const CryptoJS = require("crypto-js");
 

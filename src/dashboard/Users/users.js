@@ -16,7 +16,7 @@ import Pagination from "../../components/Pagination";
 const Users = () => {
     // const tokenB = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkltYWFkIiwiaWF0IjoxNjg5NzQwNTA0fQ.sFUdELZheDFmE_42RJF5UUQT-ZIlqhjYQBhU5t6jPP0"
     const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const rowsPerPage = 10;
     const [totalCount, setTotalCount] = useState(0);
     const [currentURL, setCurrentURL] = useState('http://192.168.56.1:3001/users/list')  //'https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users'
 
@@ -79,12 +79,15 @@ const Users = () => {
         const url = `http://192.168.56.1:3001/users/list?search=${searchTerm}`   //https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}
         const AllTempData = await fetcher(new URL(url), 'GET', [],token)
         console.log(AllTempData)
-        setCurrentURL(`http://192.168.56.1:3001/users/list?search=${searchTerm}` )
+        setCurrentURL(url)
         setTotalCount(AllTempData.length)
         const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]],token)  
         
-        
-        setData(tempData)
+        if(tempData.length === 0) setAlert(true);
+        else {
+            setData(tempData);
+            setAlert(false);
+        }
         
         setSearch(false)
     }

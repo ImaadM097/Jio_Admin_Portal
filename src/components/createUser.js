@@ -13,6 +13,7 @@ import Select from '@mui/material/Select';
 import '../styles/createUser.css'
 
 const CreateUser = ()=>{
+    const token = localStorage.getItem('token')
     const [formName, setFormName] = useState("");
     const [formTenant, setFormTenant] = useState("");
     const [role,Setrole] = useState("");
@@ -50,9 +51,9 @@ const CreateUser = ()=>{
         e.preventDefault();
 
         const newData = {
-            user_name: formName,
+            name: formName,
             tenant: formTenant,
-            status: true,
+            active: true,
             role: role
         }
 
@@ -62,7 +63,7 @@ const CreateUser = ()=>{
         // //     body: JSON.stringify(newdata)
         // // })
         // // const response = await res.json()
-        const response = await fetcher(new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'), 'POST', [], newData)
+        const response = await fetcher(new URL('http://192.168.56.1:3001/users/create'), 'POST', [], token,newData)       //'https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users/'
         console.log(response)
         // setsuccess(true)
         setFormName(""); setFormTenant("");

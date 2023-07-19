@@ -81,19 +81,17 @@ const Tenants = () => {
         setSearch(true)
         
         setCurrentPage(1)
-        const url = `http://192.168.56.1:3001/tenants/list`   //https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants?name=${searchTerm}
+        const url = `http://192.168.56.1:3001/tenants/list?search=${searchTerm}`   //https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants?name=${searchTerm}
         const AllTempData = await fetcher(new URL(url), 'GET', [], token)          //Getting all data to get total count as mockAPI does not give total count in response
         setCurrentURL(url)
         setTotalCount(AllTempData.length)
-        console.log(AllTempData)
+        // console.log(AllTempData)
         // console.log(tempData.length)
-        const tempData = await fetcher(new URL(url), 'GET', [['search', searchTerm],['page',currentPage], ['limit', rowsPerPage]], token)
+        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]], token)
 
         if(tempData.length === 0) setAlert(true)
-        else if(tempData.length <= 10) {setData(tempData); setAlert(false)}
         else {
-            const newTempData = tempData.slice(0, 10)
-            setData(newTempData)
+            setData(tempData)
             setAlert(false)
         }
         setSearch(false)

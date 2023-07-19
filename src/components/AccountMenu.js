@@ -10,9 +10,10 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-const usr = JSON.parse(localStorage.getItem('user'));
+
 
 export default function AccountMenu() {
+  const usr = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -30,7 +31,7 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex',alignItems:'center', textAlign: 'center' }}>
-        <Typography sx={{ minWidth: 100 }}>{usr!==null && usr.userName} {usr!==null && usr.lastName}</Typography>
+        <Typography sx={{ minWidth: 100 }}>{usr!==null && usr.firstName} {usr!==null && usr.lastName}</Typography>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
