@@ -20,17 +20,18 @@ const TenantsTableRow =  ({ data, index }) => {
         setReportEnabled(data.features.reportEnabled);
         setLikeEnabled(data.features.likeEnabled);
         setActive(data.active)
-     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled, data.features.active,data.active])
+     } ,[data.features.volumeControlEnabled, data.features.productDrawerEnabled, data.features.reportEnabled, data.features.likeEnabled,data.active])
 
     async function handleChange(e) {
         const temp = [volumeControlEnabled, productDrawerEnabled, reportEnabled, likeEnabled, active];
+        // console.log(e.target.id)
         if(e.target.id === 'volumeControlEnabled') temp[0] = !temp[0]
         else if(e.target.id === 'productDrawerEnabled') temp[1] = !temp[1];
         else if(e.target.id === 'reportEnabled') temp[2] = !temp[2]
-        else if(e.target.id === 'active') temp[4] = !temp[4];
+        else if(e.target.id === 'activeTenant') temp[4] = !temp[4];
         else temp[3] = !temp[3]
         
-        if(e.target.id !== 'active') {
+        if(e.target.id !== 'activeTenant') {
             
             const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
                 'PUT',
@@ -47,8 +48,9 @@ const TenantsTableRow =  ({ data, index }) => {
                 [],
                 {active : temp[4]}
             )
-            console.log(response)
+            // console.log(response)
             setActive(temp[4]);
+            // console.log(active)
         }
         
         

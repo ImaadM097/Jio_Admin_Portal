@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect} from "react";
-import fetcher from "../fetcher";
+// import fetcher from "../fetcher";
 import "../styles/pagination.css"
 
 const Pagination = ({totalCount, rowsPerPage, currentPage, pagination}) => {
@@ -32,12 +32,12 @@ const Pagination = ({totalCount, rowsPerPage, currentPage, pagination}) => {
     return (
         <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-end">
-            <li className={(currentPageDisplay == 1) ? ('page-item disabled') : ('page-item')} id="PreviousButton">
-            <a className="page-link"  tabindex="-1" onClick={handlePrevious}>Previous</a>
+            <li className={(currentPageDisplay === 1) ? ('page-item disabled') : ('page-item')} id="PreviousButton">
+            <button className="page-link"  tabindex="-1" onClick={handlePrevious}>Previous</button>
             </li>
-            <li className="page-item" id="currentPage"><a class="page-link" >{currentPageDisplay}</a></li>
+            <li className="page-item" id="currentPage"><button class="page-link" >{currentPageDisplay}</button></li>
             <li className={(currentPageDisplay >= Math.ceil(totalCount/rowsPerPage)) ? ('page-item disabled') : ('page-item')} id="NextButton">
-              <a className="page-link" onClick={handleNext}>Next</a>
+              <button className="page-link" onClick={handleNext}>Next</button>
             </li>
             </ul>
         </nav>
