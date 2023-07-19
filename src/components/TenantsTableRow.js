@@ -58,19 +58,19 @@ const TenantsTableRow =  ({ data, index }) => {
     return (
         <>
             <tr>
-                <td>{data.id}</td>
+                {/* <td>{data.id}</td> */}
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
                 <td>
-                    <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${data.id}`} id="featuresButton">
+                    <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${data._id}`} id="featuresButton">
                         Features
                     </button>
-                    <div className='modal fade' id={`modal${data.id}`}>
+                    <div className='modal fade' id={`modal${data._id}`}>
                         <div className='modal-dialog modal-dialog-centered'>
                             <div className='modal-content'>
                                 <div className='modal-header' id="modalHeader">
                                     <h2>Enable/Disable Features</h2>
-                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${data.id}`}></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${data._id}`}></button>
                                 </div>
                                 <div className='modal-body' id='features'>
 

@@ -14,10 +14,11 @@ import Pagination from "../../components/Pagination";
 
 
 const Users = () => {
+    const tokenB = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkltYWFkIiwiaWF0IjoxNjg5NzQwNTA0fQ.sFUdELZheDFmE_42RJF5UUQT-ZIlqhjYQBhU5t6jPP0"
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalCount, setTotalCount] = useState(0);
-    const [currentURL, setCurrentURL] = useState('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+    const [currentURL, setCurrentURL] = useState('http://192.168.56.1:3001/users/list')  //'https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users'
 
 
 
@@ -38,13 +39,14 @@ const Users = () => {
 
     const getUsers = async () => {
         
-        setCurrentURL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+        setCurrentURL('http://192.168.56.1:3001/users/list')
 
-        const Alldata = await fetcher(new URL(currentURL), 'GET', [])
+        const Alldata = await fetcher(new URL(currentURL), 'GET', [],tokenB)
         setTotalCount(Alldata.length)
         setCurrentPage(1)
         
-        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]])
+        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]],tokenB)
+        console.log(data)
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -54,8 +56,18 @@ const Users = () => {
             setLoader(false);
         }
     }
+<<<<<<< Updated upstream
 
     const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
+=======
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+        else getUsers();
+    }, [navigate,token]);
+    const tableHeaders = [ 'Username', 'Tenant', 'Role','Active']
+>>>>>>> Stashed changes
 
     async function handleSearch(e) {
 
@@ -65,25 +77,18 @@ const Users = () => {
         // let tempData = []
         if(searchTerm.length <= 2) {  setSearch(false);    return }
         
-        // for(let i=1; i<tableHeaders.length-1; i++) {
-        //     const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
-        //     let header = tableHeaders[i].toLowerCase()
-        //     if(header === 'username') header = 'user_name'
-        //     const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1], ['limit', 10]])
-        //     tempData = tempData.concat(searchResult)
-        // }
-        setCurrentPage(1)
-        const url = `https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}`
-        const AllTempData = await fetcher(new URL(url), 'GET', [])
-        setCurrentURL(url)
-        setTotalCount(AllTempData.length)
-        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]])  
         
-        if(tempData.length <= 10) setData(tempData)
-        else {
-            const newTempData = tempData.slice(0, 10)
-            setData(newTempData)
-        }
+        setCurrentPage(1)
+        const url = `http://192.168.56.1:3001/users/list?search=${searchTerm}`   //https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}
+        const AllTempData = await fetcher(new URL(url), 'GET', [],tokenB)
+        console.log(AllTempData)
+        setCurrentURL(`http://192.168.56.1:3001/users/list?search=${searchTerm}` )
+        setTotalCount(AllTempData.length)
+        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]],tokenB)  
+        
+        
+        setData(tempData)
+        
         setSearch(false)
     }
 

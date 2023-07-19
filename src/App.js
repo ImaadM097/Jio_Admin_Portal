@@ -11,16 +11,17 @@ import Sidebar from './components/Sidebar';
 import { useEffect } from 'react';
 
 function App() {  
-  
+  const token = localStorage.getItem('token');
 
   useEffect(()=>{
-    redirect("/login")
+    if(!token) redirect("/login")
+    else  redirect("/dashboard")
   }, [])
 
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
           <>

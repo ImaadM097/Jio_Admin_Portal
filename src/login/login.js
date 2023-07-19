@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import './login.css'
 import { useNavigate } from "react-router-dom";
+<<<<<<< Updated upstream
 
+=======
+import logo from '../src_images/JioLiv@2x.png';
+const CryptoJS = require("crypto-js");
+>>>>>>> Stashed changes
 function Login() {
     const navigate = useNavigate();
     const [validPass,setValidPass] = useState(true);
@@ -11,16 +16,20 @@ function Login() {
     });
     const handleClick =  async (e)=>{
         e.preventDefault();
-        const res = await fetch('https://dummyjson.com/auth/login', {
+        const encrypted = CryptoJS.AES.encrypt(formData.password, 'abdfut3rt598dhfn').toString();
+        const res = await fetch('http://192.168.56.1:3001/login', {                             //'https://dummyjson.com/auth/login'
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-            username: formData.username,
-            password: formData.password,
+            userName: formData.username,
+            password: encrypted,
+            role: 'superAdmin'
             })
         })
-        if(res.ok){
+        console.log(res);
+        if(res.status == 200){
             const data = await res.json();
+            console.log(data)
             localStorage.setItem('token',data.token);   
             localStorage.setItem('user',JSON.stringify(data));
             setValidPass(true);
@@ -31,6 +40,7 @@ function Login() {
                 password:""
             })
             setValidPass(false);
+            console.log(res)
         }
         
     }

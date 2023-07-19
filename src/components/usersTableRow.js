@@ -4,7 +4,7 @@ import { useState } from 'react';
 import fetcher from '../fetcher';
 
 const UsersTableRow = ({ data, index }) => {
-    let [status,SetStatus] = useState(data.status)
+    let [status,SetStatus] = useState(data.active)
 
     function clicked(event) {
 
@@ -31,8 +31,8 @@ const UsersTableRow = ({ data, index }) => {
     return (
         <>
             <tr>
-                <td>{data.id}</td>
-                <td>{data.user_name}</td>
+                {/* <td>{data.id}</td> */}
+                <td>{data.name}</td>
                 <td>{data.tenant}</td>
                 <td>{data.role}</td>
                 

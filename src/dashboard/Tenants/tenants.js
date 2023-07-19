@@ -12,10 +12,11 @@ import CreateTenant from "../../components/CreateTenant";
 import fetcher from "../../fetcher";
 import Pagination from "../../components/Pagination";
 const Tenants = () => {
+    const tokenB = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkltYWFkIiwiaWF0IjoxNjg5NzQwNTA0fQ.sFUdELZheDFmE_42RJF5UUQT-ZIlqhjYQBhU5t6jPP0"
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalCount, setTotalCount] = useState(0);
-    const [currentURL, setCurrentURL] = useState('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants')
+    const [currentURL, setCurrentURL] = useState('http://192.168.56.1:3001/tenants/list')    //'https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants'
 
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -33,14 +34,26 @@ const Tenants = () => {
     }, [navigate,token]);
 
     const getTenants = async () => {
-        const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
-        setCurrentURL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
+        const url = new URL('http://192.168.56.1:3001/tenants/list');
+        setCurrentURL('http://192.168.56.1:3001/tenants/list');
         
 
-        const Alldata = await fetcher(url, 'GET', [])
+        const Alldata = await fetcher(url, 'GET', [], tokenB);
+        // const AlldataRes = await fetch('http://192.168.56.1:3001/tenants/list', {
+        //     method: 'GET',
+        //     headers: {'content-type': 'application/json', 'authorization': tokenB}
+        // })
+        // const Alldata = await AlldataRes.json();
         setTotalCount(Alldata.length)
         
-        const data = await fetcher(url, 'GET', [['page', 1], ['limit',rowsPerPage]])
+        const data = await fetcher(url, 'GET', [['page', 1], ['limit',rowsPerPage]], tokenB)
+        // const dataRes = await fetch('http://192.168.56.1:3001/tenants/list?'+`page=${currentPage}&limit=${rowsPerPage}`, {
+        //     method: 'GET',
+        //     headers: {'content-type': 'application/json', 'authorization': tokenB}
+
+        // })
+        // const data = await dataRes.json();
+        console.log(data)
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -53,7 +66,7 @@ const Tenants = () => {
         
     }
 
-    const tableHeaders = ['Id', 'Name', 'Domain', 'Features', 'Active']
+    const tableHeaders = [ 'Name', 'Domain', 'Features', 'Active']
 
     async function handleSearch(e) {
         // let tempData = []
@@ -65,25 +78,15 @@ const Tenants = () => {
         if(searchTerm.length <= 2) return
 
         setSearch(true)
-        // for(let i=1; i<=2; i++) {
-        //     const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants');
-        //     // setCurrentURL(url)
-        //     let header = tableHeaders[i].toLowerCase()
-        //     const searchResult = await fetcher(
-        //         url,
-        //         'GET',
-        //         [[header, searchTerm], ['page', 1],['limit', 10]]
-        //     )
-            
-        //     tempData = tempData.concat(searchResult)
-        // }
+        
         setCurrentPage(1)
-        const url = `https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants?name=${searchTerm}`
-        const AllTempData = await fetcher(new URL(url), 'GET', [])          //Getting all data to get total count as mockAPI does not give total count in response
+        const url = `http://192.168.56.1:3001/tenants/list`   //https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants?name=${searchTerm}
+        const AllTempData = await fetcher(new URL(url), 'GET', [], tokenB)          //Getting all data to get total count as mockAPI does not give total count in response
         setCurrentURL(url)
         setTotalCount(AllTempData.length)
+        console.log(AllTempData)
         // console.log(tempData.length)
-        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]])
+        const tempData = await fetcher(new URL(url), 'GET', [['search', searchTerm],['page',currentPage], ['limit', rowsPerPage]], tokenB)
 
         if(tempData.length === 0) setAlert(true)
         else if(tempData.length <= 10) {setData(tempData); setAlert(false)}
