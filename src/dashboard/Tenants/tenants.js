@@ -39,7 +39,7 @@ const Tenants = () => {
         setCurrentURL('http://192.168.56.1:3001/tenants/list');
         
 
-        const Alldata = await fetcher(url, 'GET', [], tokenB);
+        const Alldata = await fetcher(url, 'GET', [], token);
         // const AlldataRes = await fetch('http://192.168.56.1:3001/tenants/list', {
         //     method: 'GET',
         //     headers: {'content-type': 'application/json', 'authorization': tokenB}
@@ -47,7 +47,7 @@ const Tenants = () => {
         // const Alldata = await AlldataRes.json();
         setTotalCount(Alldata.length)
         
-        const data = await fetcher(url, 'GET', [['page', 1], ['limit',rowsPerPage]], tokenB)
+        const data = await fetcher(url, 'GET', [['page', 1], ['limit',rowsPerPage]], token)
         // const dataRes = await fetch('http://192.168.56.1:3001/tenants/list?'+`page=${currentPage}&limit=${rowsPerPage}`, {
         //     method: 'GET',
         //     headers: {'content-type': 'application/json', 'authorization': tokenB}
@@ -82,12 +82,12 @@ const Tenants = () => {
         
         setCurrentPage(1)
         const url = `http://192.168.56.1:3001/tenants/list`   //https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants?name=${searchTerm}
-        const AllTempData = await fetcher(new URL(url), 'GET', [], tokenB)          //Getting all data to get total count as mockAPI does not give total count in response
+        const AllTempData = await fetcher(new URL(url), 'GET', [], token)          //Getting all data to get total count as mockAPI does not give total count in response
         setCurrentURL(url)
         setTotalCount(AllTempData.length)
         console.log(AllTempData)
         // console.log(tempData.length)
-        const tempData = await fetcher(new URL(url), 'GET', [['search', searchTerm],['page',currentPage], ['limit', rowsPerPage]], tokenB)
+        const tempData = await fetcher(new URL(url), 'GET', [['search', searchTerm],['page',currentPage], ['limit', rowsPerPage]], token)
 
         if(tempData.length === 0) setAlert(true)
         else if(tempData.length <= 10) {setData(tempData); setAlert(false)}
@@ -103,12 +103,12 @@ const Tenants = () => {
         console.log(currentURL)
 
         if(type === 'next') {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]],token)
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)
         }
         else {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]],token)
             if(currentPage > 1)setCurrentPage(currentPage-1)
             setData(data)
         }

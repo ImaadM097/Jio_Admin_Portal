@@ -14,7 +14,7 @@ import Pagination from "../../components/Pagination";
 
 
 const Users = () => {
-    const tokenB = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkltYWFkIiwiaWF0IjoxNjg5NzQwNTA0fQ.sFUdELZheDFmE_42RJF5UUQT-ZIlqhjYQBhU5t6jPP0"
+    // const tokenB = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkltYWFkIiwiaWF0IjoxNjg5NzQwNTA0fQ.sFUdELZheDFmE_42RJF5UUQT-ZIlqhjYQBhU5t6jPP0"
     const [currentPage, setCurrentPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalCount, setTotalCount] = useState(0);
@@ -41,11 +41,11 @@ const Users = () => {
         
         setCurrentURL('http://192.168.56.1:3001/users/list')
 
-        const Alldata = await fetcher(new URL(currentURL), 'GET', [],tokenB)
+        const Alldata = await fetcher(new URL(currentURL), 'GET', [],token)
         setTotalCount(Alldata.length)
         setCurrentPage(1)
         
-        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]],tokenB)
+        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]],token)
         console.log(data)
         if(data.length === 0 || data === null){
             setAlert(true);
@@ -56,10 +56,7 @@ const Users = () => {
             setLoader(false);
         }
     }
-<<<<<<< Updated upstream
 
-    const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
-=======
     useEffect(() => {
         if (!token) {
             navigate('/login');
@@ -67,7 +64,7 @@ const Users = () => {
         else getUsers();
     }, [navigate,token]);
     const tableHeaders = [ 'Username', 'Tenant', 'Role','Active']
->>>>>>> Stashed changes
+
 
     async function handleSearch(e) {
 
@@ -80,11 +77,11 @@ const Users = () => {
         
         setCurrentPage(1)
         const url = `http://192.168.56.1:3001/users/list?search=${searchTerm}`   //https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}
-        const AllTempData = await fetcher(new URL(url), 'GET', [],tokenB)
+        const AllTempData = await fetcher(new URL(url), 'GET', [],token)
         console.log(AllTempData)
         setCurrentURL(`http://192.168.56.1:3001/users/list?search=${searchTerm}` )
         setTotalCount(AllTempData.length)
-        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]],tokenB)  
+        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]],token)  
         
         
         setData(tempData)
@@ -96,12 +93,12 @@ const Users = () => {
         console.log(currentURL)
 
         if(type == 'next') {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]],token)
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)
         }
         else {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]],token)
             if(currentPage > 1)setCurrentPage(currentPage-1)
             setData(data)
         }

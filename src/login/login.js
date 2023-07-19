@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import './login.css'
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
 
-=======
 import logo from '../src_images/JioLiv@2x.png';
 const CryptoJS = require("crypto-js");
->>>>>>> Stashed changes
+
 function Login() {
     const navigate = useNavigate();
     const [validPass,setValidPass] = useState(true);
