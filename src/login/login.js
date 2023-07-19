@@ -2,8 +2,19 @@ import React, { useState } from "react";
 import './login.css'
 import { useNavigate } from "react-router-dom";
 
+import { useEffect } from "react";
+
+import logo from '../src_images/JioLiv@2x.png';
+
 function Login() {
     const navigate = useNavigate();
+    const usr1 = localStorage.getItem('token');
+    
+    useEffect(() => {
+        if(usr1){
+            navigate('/dashboard');
+        }
+    }, [navigate,usr1]);
     const [validPass,setValidPass] = useState(true);
     const [formData,setFormData] = useState({
         username:"",
@@ -47,9 +58,8 @@ function Login() {
         <div className="Auth-form-container">
             <form className="Auth-form" onSubmit={handleClick}>
                 <div className="Auth-form-content">
-                    <svg width="75" height="75" xmlns="http://www.w3.org/2000/svg">
-                        <image href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Reliance_Jio_Logo_%28October_2015%29.svg/800px-Reliance_Jio_Logo_%28October_2015%29.svg.png" height="75" width="75" />
-                    </svg>
+                   
+                    <img src={logo} alt={"logo"}/>
                     <h3 className="Auth-form-title">Admin Login</h3>
                     <div className="form-group mt-3">
                         <label>Username : </label>
