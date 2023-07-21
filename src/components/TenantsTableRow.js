@@ -13,6 +13,7 @@ const TenantsTableRow =  ({ data, index }) => {
     const [reportEnabled, setReportEnabled] = useState(data.features.reportEnabled);
     const [likeEnabled, setLikeEnabled] = useState(data.features.likeEnabled);
     const [active, setActive] = useState(data.active);
+    const token = localStorage.getItem('token');
 
     useEffect ( ()=>{
         setVolumeControlEnabled(data.features.volumeControlEnabled);
@@ -33,9 +34,10 @@ const TenantsTableRow =  ({ data, index }) => {
         
         if(e.target.id !== 'activeTenant') {
             
-            const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
+            const response = await fetcher(`http://192.168.56.1:3001/tenants/update/${data._id}`,
                 'PUT',
                 [],
+                token,
                 {features : {'volumeControlEnabled': temp[0], 'productDrawerEnabled': temp[1], 'reportEnabled': temp[2], 'likeEnabled': temp[3]}}
             )
 
@@ -43,9 +45,10 @@ const TenantsTableRow =  ({ data, index }) => {
             setVolumeControlEnabled(temp[0]); setProductDrawerEnabled(temp[1]); setReportEnabled(temp[2]); setLikeEnabled(temp[3]);
         }
         else {
-            const response = await fetcher(`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/${data.id}`,
+            const response = await fetcher(`http://192.168.56.1:3001/tenants/update/${data._id}`,
                 'PUT',
                 [],
+                token,
                 {active : temp[4]}
             )
             // console.log(response)
@@ -60,19 +63,19 @@ const TenantsTableRow =  ({ data, index }) => {
     return (
         <>
             <tr>
-                <td>{data.id}</td>
+                {/* <td>{data.id}</td> */}
                 <td>{data.name}</td>
                 <td>{data.domain}</td>
                 <td>
-                    <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${data.id}`} id="featuresButton">
+                    <button className='btn' data-bs-toggle="modal" data-bs-target={`#modal${data._id}`} id="featuresButton">
                         Features
                     </button>
-                    <div className='modal fade' id={`modal${data.id}`}>
+                    <div className='modal fade' id={`modal${data._id}`}>
                         <div className='modal-dialog modal-dialog-centered'>
                             <div className='modal-content'>
                                 <div className='modal-header' id="modalHeader">
                                     <h2>Enable/Disable Features</h2>
-                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${data.id}`}></button>
+                                    <button className='btn-close btn-close-white' data-bs-dismiss="modal" data-bs-target={`#modal${data._id}`}></button>
                                 </div>
                                 <div className='modal-body' id='features'>
 

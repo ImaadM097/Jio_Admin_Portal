@@ -16,7 +16,7 @@ const Videos = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
     const [totalCount, setTotalCount] = useState(0);
-    const [currentURL, setCurrentURL] = useState('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
+    const [currentURL, setCurrentURL] = useState('http://192.168.56.1:3001/videos/list')      //'https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos'
 
 
     const [data, setData] = useState([]);
@@ -29,14 +29,14 @@ const Videos = () => {
     
 
     const getVideos = useCallback(async ()=> {
+        const url = 'http://192.168.56.1:3001/videos/list'
+        setCurrentURL('http://192.168.56.1:3001/videos/list')    //'https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos'
 
-        setCurrentURL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
-
-        const Alldata = await fetcher(new URL(currentURL), 'GET', [])
+        const Alldata = await fetcher(new URL(url), 'GET', [], token)
         setTotalCount(Alldata.length)
         setCurrentPage(1)
         
-        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]])
+        const data = await fetcher(new URL(url), 'GET', [['page', 1], ['limit', 10]], token)
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -45,7 +45,7 @@ const Videos = () => {
             setData(data);
             setLoader(false);
         }
-    },[currentURL])
+    })
 
     useEffect(() => {
         if(!token){
@@ -53,59 +53,43 @@ const Videos = () => {
         }
         getVideos()
         
-    }, [navigate,token,getVideos]);
-    const tableHeaders = ['Id' ,'Name', 'Tenant', 'Status', 'Duration', 'Video']
+    }, [navigate,token]);
+    const tableHeaders = ['Name', 'Tenant', 'Status', 'Duration', 'Video']
     
     async function handleSearch(e) {
 
         setSearchValue(e.target.value)
         const searchTerm = e.target.value
         setSearch(true)
-        // let tempData = []
         if(searchTerm.length <= 2) { setSearch(false);    return }
         
-        // for(let i=1; i<tableHeaders.length-3; i++) {
-        //     const url = new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos')
-        //     const header = tableHeaders[i].toLowerCase()
-            
-        //     const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1],['limit', 10]])
-        //     // console.log(searchResult)
-        //     tempData = tempData.concat(searchResult)
-        // }
 
         setCurrentPage(1)
-        const queryURL = `https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos?name=${searchTerm}`
-        const AllTempData = await fetcher(new URL(queryURL), 'GET', [])
+        const queryURL =  `http://192.168.56.1:3001/videos/list?search=${searchTerm}`                                  //`https://649ebb2f245f077f3e9cd0c1.mockapi.io/Videos?name=${searchTerm}`
+        const AllTempData = await fetcher(new URL(queryURL), 'GET', [],token)
         setCurrentURL(queryURL)
         setTotalCount(AllTempData.length)
-        const tempData = await fetcher(new URL(queryURL), 'GET', [['page',currentPage], ['limit', rowsPerPage]])  
+        const tempData = await fetcher(new URL(queryURL), 'GET', [['page',currentPage], ['limit', rowsPerPage]],token)  
 
         if(tempData.length === 0) setAlert(true)
-        if(tempData.length <= 10) {setData(tempData); setAlert(false)}
         else {
-            const newTempData = tempData.slice(0, 10)
-            setData(newTempData)
+            setData(tempData)
             setAlert(false)
         }
         setSearch(false)
     }
     
     async function handlePagination(type) {
-        console.log(currentURL)
-
         if(type === 'next') {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]],token)
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)
         }
         else {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]],token)
             if(currentPage > 1)setCurrentPage(currentPage-1)
             setData(data)
         }
-        // console.log(data)
-        
-        
     } 
     
     return (

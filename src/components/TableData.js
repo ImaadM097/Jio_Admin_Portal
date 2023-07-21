@@ -7,8 +7,8 @@ const TableRow = ({data, index}) => {
                 <td>{data.channel_name}</td>
                 <td>{data.title}</td>
                 <td>
-                    <button className='btn sm' data-bs-toggle="modal" data-bs-target={`#modal${index}`} id="commentCountButton">{data.comment_count}</button>
-                    <div className='modal fade' id={`modal${index}`}>
+                    <button className='btn sm' data-bs-toggle="modal" data-bs-target={`#modal${data._id}`} id="commentCountButton">{data.comment_count}</button>
+                    <div className='modal fade' id={`modal${data._id}`}>
                         <div className='modal-dialog modal-dialog-centered'>
                             <div className='modal-content'>
                                 <div className='modal-header'>

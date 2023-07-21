@@ -1,20 +1,12 @@
+// import 'dotenv/config'
 import React, { useState } from "react";
 import './login.css'
 import { useNavigate } from "react-router-dom";
-
-import { useEffect } from "react";
-
 import logo from '../src_images/JioLiv@2x.png';
+const CryptoJS = require("crypto-js");
 
 function Login() {
     const navigate = useNavigate();
-    const usr1 = localStorage.getItem('token');
-    
-    useEffect(() => {
-        if(usr1){
-            navigate('/dashboard');
-        }
-    }, [navigate,usr1]);
     const [validPass,setValidPass] = useState(true);
     const [formData,setFormData] = useState({
         username:"",
@@ -22,16 +14,20 @@ function Login() {
     });
     const handleClick =  async (e)=>{
         e.preventDefault();
-        const res = await fetch('https://dummyjson.com/auth/login', {
+        const encrypted = CryptoJS.AES.encrypt(formData.password, 'abdfut3rt598dhfn').toString();
+        const res = await fetch('http://192.168.56.1:3001/login', {                             //'https://dummyjson.com/auth/login'
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-            username: formData.username,
-            password: formData.password,
+            userName: formData.username,
+            password: encrypted,
+            role: 'superAdmin'
             })
         })
-        if(res.ok){
+        console.log(res);
+        if(res.status == 200){
             const data = await res.json();
+            console.log(data)
             localStorage.setItem('token',data.token);   
             localStorage.setItem('user',JSON.stringify(data));
             setValidPass(true);
@@ -42,6 +38,7 @@ function Login() {
                 password:""
             })
             setValidPass(false);
+            console.log(res)
         }
         
     }
@@ -58,8 +55,9 @@ function Login() {
         <div className="Auth-form-container">
             <form className="Auth-form" onSubmit={handleClick}>
                 <div className="Auth-form-content">
-                   
-                    <img src={logo} alt={"logo"}/>
+                    <svg width="75" height="75" xmlns="http://www.w3.org/2000/svg">
+                        <image href="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Reliance_Jio_Logo_%28October_2015%29.svg/800px-Reliance_Jio_Logo_%28October_2015%29.svg.png" height="75" width="75" />
+                    </svg>
                     <h3 className="Auth-form-title">Admin Login</h3>
                     <div className="form-group mt-3">
                         <label>Username : </label>

@@ -1,6 +1,6 @@
 
 
-async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) {
+async function fetcher(url, reqMethod, searchParamsList = [],token,bodyContent = {}) {
 
     
 
@@ -13,7 +13,7 @@ async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) 
     if(reqMethod !== 'GET') {
         const res = await fetch(url, {
             method: reqMethod,
-            headers: {'content-type': 'application/json'},
+            headers: {'content-type': 'application/json', 'authorization': token},
             body: JSON.stringify(bodyContent)
         })
         
@@ -23,10 +23,11 @@ async function fetcher(url, reqMethod, searchParamsList = [], bodyContent = {}) 
     else {
         const res = await fetch(url, {
             method: reqMethod,
-            headers: {'content-type': 'application/json'}
+            headers: {'content-type': 'application/json', 'authorization': token}
         })
         // console.log(res)
         const result = await res.json()
+        // console.log(result)
         return result
     }
 

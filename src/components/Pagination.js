@@ -13,10 +13,7 @@ const Pagination = ({totalCount, rowsPerPage, currentPage, pagination}) => {
         setCurrentPageDisplay(currentPage);
     }, [currentPage])
     
-    const pageNumber = []
-
-    for(let i=1; i<= Math.ceil(totalCount/rowsPerPage); i++) pageNumber.push(i);
-
+    
     async function handleNext () {
         console.log(currentPageDisplay)
         if(currentPageDisplay >= Math.ceil(totalCount/rowsPerPage)) return;

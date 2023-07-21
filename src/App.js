@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate, redirect } from "react-router-dom"
 import Login from './login/login';
 import Tables from './dashboard/Comments/Tables';
 import Dashboard from './dashboard/main_dashboard/dashboard';
@@ -8,14 +8,21 @@ import Videos from './dashboard/Videos/videos';
 import Tenants from './dashboard/Tenants/tenants';
 import Users from './dashboard/Users/users';
 import Sidebar from './components/Sidebar';
+import { useEffect } from 'react';
 
 function App() {  
+  const token = localStorage.getItem('token');
+
+  useEffect(()=>{
+    if(!token) redirect("/login")
+    else  redirect("/dashboard")
+  }, [])
+
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<Login />
-      } />
+      <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={
           <>
             <div className='mainContainer'>

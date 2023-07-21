@@ -1,5 +1,4 @@
 import React from "react";
-import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import Sidebar from "../../components/Sidebar";
@@ -15,10 +14,11 @@ import Pagination from "../../components/Pagination";
 
 
 const Users = () => {
+    // const tokenB = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkltYWFkIiwiaWF0IjoxNjg5NzQwNTA0fQ.sFUdELZheDFmE_42RJF5UUQT-ZIlqhjYQBhU5t6jPP0"
     const [currentPage, setCurrentPage] = useState(1);
     const rowsPerPage = 10;
     const [totalCount, setTotalCount] = useState(0);
-    const [currentURL, setCurrentURL] = useState('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+    const [currentURL, setCurrentURL] = useState('http://192.168.56.1:3001/users/list')  //'https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users'
 
 
 
@@ -30,17 +30,23 @@ const Users = () => {
     const [loader,setLoader] = useState(true);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
-    
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+        getUsers()
+    }, [navigate,token]);
 
-    const getUsers = useCallback(async () => {
+    const getUsers = async () => {
         
-        setCurrentURL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
+        setCurrentURL('http://192.168.56.1:3001/users/list')
 
-        const Alldata = await fetcher(new URL(currentURL), 'GET', [])
+        const Alldata = await fetcher(new URL(currentURL), 'GET', [],token)
         setTotalCount(Alldata.length)
         setCurrentPage(1)
         
-        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]])
+        const data = await fetcher(new URL(currentURL), 'GET', [['page', 1], ['limit', 10]],token)
+        console.log(data)
         if(data.length === 0 || data === null){
             setAlert(true);
             setLoader(false);
@@ -49,14 +55,16 @@ const Users = () => {
             setData(data);
             setLoader(false);
         }
-    },[currentURL])
+    }
+
     useEffect(() => {
         if (!token) {
             navigate('/login');
         }
         else getUsers();
-    }, [navigate,token,getUsers]);
-    const tableHeaders = ['Id', 'Username', 'Tenant', 'Role','Active']
+    }, [navigate,token]);
+    const tableHeaders = [ 'Username', 'Tenant', 'Role','Active']
+
 
     async function handleSearch(e) {
 
@@ -66,38 +74,34 @@ const Users = () => {
         // let tempData = []
         if(searchTerm.length <= 2) {  setSearch(false);    return }
         
-        // for(let i=1; i<tableHeaders.length-1; i++) {
-        //     const url = new URL('https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users')
-        //     let header = tableHeaders[i].toLowerCase()
-        //     if(header === 'username') header = 'user_name'
-        //     const searchResult = await fetcher(url, 'GET', [[header, searchTerm], ['page', 1], ['limit', 10]])
-        //     tempData = tempData.concat(searchResult)
-        // }
+        
         setCurrentPage(1)
-        const url = `https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}`
-        const AllTempData = await fetcher(new URL(url), 'GET', [])
+        const url = `http://192.168.56.1:3001/users/list?search=${searchTerm}`   //https://649f0fa3245f077f3e9d4cf3.mockapi.io/Users?user_name=${searchTerm}
+        const AllTempData = await fetcher(new URL(url), 'GET', [],token)
+        console.log(AllTempData)
         setCurrentURL(url)
         setTotalCount(AllTempData.length)
-        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]])  
+        const tempData = await fetcher(new URL(url), 'GET', [['page',currentPage], ['limit', rowsPerPage]],token)  
         
-        if(tempData.length <= 10) setData(tempData)
+        if(tempData.length === 0) setAlert(true);
         else {
-            const newTempData = tempData.slice(0, 10)
-            setData(newTempData)
+            setData(tempData);
+            setAlert(false);
         }
+        
         setSearch(false)
     }
 
     async function handlePagination(type) {
         console.log(currentURL)
 
-        if(type === 'next') {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]])
+        if(type == 'next') {
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage+1],['limit',rowsPerPage]],token)
             if(currentPage < Math.ceil(totalCount/rowsPerPage))setCurrentPage(currentPage+1)
             setData(data)
         }
         else {
-            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]])
+            const data = await fetcher(new URL(currentURL), 'GET', [['page', currentPage-1],['limit',rowsPerPage]],token)
             if(currentPage > 1)setCurrentPage(currentPage-1)
             setData(data)
         }

@@ -10,9 +10,10 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
-const usr = JSON.parse(localStorage.getItem('user'));
+
 
 export default function AccountMenu() {
+  const usr = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

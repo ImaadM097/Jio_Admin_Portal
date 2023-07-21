@@ -15,6 +15,7 @@ const CreateTenant = ()=>{
     //     domain:"",
         
     // });
+    const token = localStorage.getItem('token')
     const [formName, setFormName] = useState("");
     const [formDomain, setFormDomain] = useState("");
     // const [active, setActive] = useState(false)
@@ -70,7 +71,8 @@ const CreateTenant = ()=>{
         // //     body: JSON.stringify(newdata)
         // // })
         // // const response = await res.json()
-        const response = await fetcher(new URL('https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/'), 'POST', [], newdata)
+        
+        const response = await fetcher(new URL(`http://192.168.56.1:3001/tenants/create`), 'POST', [], token,newdata)   //'https://649ebb2f245f077f3e9cd0c1.mockapi.io/Tenants/'
         console.log(response)
         // setsuccess(true)
         setFormDomain(""); setFormName("");
